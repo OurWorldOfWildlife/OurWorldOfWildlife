@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our World of Wildlife</title>
+<meta name="description" content="A kid-led nature and conservation site about wildlife, recycling and upcycling.">
+<meta name="theme-color" content="#2C5A4B">
+<meta property="og:title" content="Our World of Wildlife">
+<meta property="og:description" content="A kid-led nature and conservation site about wildlife, recycling and upcycling.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --mist:#EEF5F0;
+  --wash:#D6E8E4;
+  --fern:#2C5A4B;
+  --moss:#6E9C6B;
+  --river:#4C8CA6;
+  --sun:#E6AE4A;
+  --petal:#E7A7A0;
+  --ink:#1E3532;
+  --ink-soft:#3F5C57;
+  --paper:#FBFDFB;
+  --display:'Caveat Brush','Segoe Print','Comic Sans MS',cursive;
+  --body:'Quicksand','Trebuchet MS',system-ui,sans-serif;
+  --blob-a:34px 14px 30px 16px / 16px 30px 14px 34px;
+  --blob-b:18px 32px 16px 34px / 32px 16px 34px 18px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:1.05rem;
+  line-height:1.65;
+  color:var(--ink);
+  background:
+    radial-gradient(60rem 30rem at 8% -5%, #DCEBE6 0%, transparent 60%),
+    radial-gradient(50rem 30rem at 100% 25%, #E9F0E0 0%, transparent 60%),
+    var(--mist);
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:50;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .4 0 0 0 0 .35 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+img,svg{max-width:100%}
+a{color:var(--fern)}
+:focus-visible{outline:3px solid var(--river); outline-offset:3px; border-radius:6px}
+[tabindex="-1"]:focus{outline:none}
+.skip{position:absolute; left:-999px; top:0; background:var(--fern); color:#fff; padding:.6rem 1rem; z-index:100}
+.skip:focus{left:.5rem; top:.5rem}
+
+/* ---------- icons ---------- */
+.icon{width:2.4rem; height:2.4rem; fill:none; stroke:currentColor; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; flex:none}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  padding:.6rem clamp(1rem,3vw,2rem);
+  background:rgba(238,245,240,.9);
+  backdrop-filter:blur(8px);
+  border-bottom:2px solid rgba(44,90,75,.12);
+}
+.brand{display:flex; align-items:center; gap:.55rem; text-decoration:none; color:var(--fern); font-family:var(--display); font-size:1.7rem; line-height:1}
+.brand .icon{width:2rem; height:2rem; stroke-width:2.6}
+.nav{display:flex; flex-wrap:wrap; gap:.25rem}
+.nav a{
+  text-decoration:none; font-weight:700; font-size:.98rem; color:var(--fern);
+  padding:.4rem .85rem; border-radius:999px;
+}
+.nav a:hover{background:var(--wash)}
+.nav a[aria-current="page"]{background:var(--fern); color:#fff}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative; overflow:hidden;
+  padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem) 0;
+  min-height:min(88vh,740px);
+  background:
+    radial-gradient(22rem 22rem at 88% 6%, rgba(230,174,74,.42), transparent 65%),
+    linear-gradient(#D8ECEF 0%, #E8F3EA 52%, #EEF5F0 100%);
+  border-radius:0 0 44px 44px / 0 0 28px 28px;
+}
+.hero-inner{
+  position:relative; z-index:2;
+  max-width:1120px; margin:0 auto;
+  display:grid; grid-template-columns:1.3fr .7fr; gap:2rem; align-items:start;
+  padding-bottom:clamp(13rem,27vw,21rem);
+}
+.hero h1{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(3rem,8vw,5.6rem); line-height:.95; letter-spacing:.005em;
+  margin:0 0 1rem; color:var(--fern);
+}
+.hero p.lead{font-size:clamp(1.1rem,2.2vw,1.35rem); max-width:34rem; margin:0 0 1.5rem; color:var(--ink)}
+.hero-actions{display:flex; flex-wrap:wrap; gap:.8rem}
+.hero-scene{position:absolute; left:0; right:0; bottom:0; width:100%; height:60%; z-index:1}
+.river-line{stroke-dasharray:900; stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){
+  .river-line{animation:flow 3.2s ease-out 1 both}
+  @keyframes flow{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+}
+.avatar-wrap{justify-self:center; text-align:center; max-width:230px}
+.bubble{
+  display:inline-block; background:var(--paper); border:2px solid rgba(44,90,75,.2);
+  border-radius:22px 22px 22px 6px; padding:.4rem 1rem; margin-bottom:.6rem;
+  font-family:var(--display); font-size:1.5rem; color:var(--fern); line-height:1.2
+}
+.avatar{width:100%; height:auto; display:block}
+
+.btn{
+  display:inline-block; text-decoration:none; font-family:var(--body); font-weight:700; font-size:1.02rem;
+  padding:.8rem 1.4rem; border-radius:999px; border:2px solid var(--fern); cursor:pointer;
+  background:var(--fern); color:#fff; transition:transform .15s ease, background .15s ease;
+}
+.btn:hover{background:#224a3d; transform:translateY(-2px)}
+.btn.alt{background:transparent; color:var(--fern)}
+.btn.alt:hover{background:rgba(44,90,75,.08)}
+.btn:disabled{opacity:.55; cursor:default; transform:none}
+
+/* ---------- layout ---------- */
+.view{max-width:1040px; margin:0 auto; padding:clamp(2rem,5vw,3.6rem) 1.25rem 4rem}
+.view-title{
+  font-family:var(--display); font-weight:400; font-size:clamp(2.4rem,6vw,3.8rem); line-height:1.05;
+  color:var(--fern); margin:0 0 .5rem; display:inline;
+  background:linear-gradient(transparent 60%, rgba(76,140,166,.32) 60% 90%, transparent 90%);
+  padding:0 .2em; margin-left:-.2em;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+}
+.view-intro{font-size:1.15rem; max-width:40rem; margin:1rem 0 2rem; color:var(--ink-soft)}
+h2{font-family:var(--display); font-weight:400; font-size:clamp(1.9rem,4vw,2.5rem); line-height:1.1; color:var(--fern); margin:0 0 .6rem}
+h3{font-family:var(--body); font-weight:700; font-size:1.25rem; line-height:1.3; margin:0 0 .4rem; color:var(--ink)}
+p{margin:0 0 1rem}
+.wave{display:block; width:100%; height:34px; margin:0}
+
+.card{
+  position:relative; background:rgba(255,255,255,.74);
+  border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-a);
+  padding:1.5rem 1.5rem 1.3rem;
+}
+.card:nth-child(even){border-radius:var(--blob-b)}
+.card .icon{color:var(--fern); margin-bottom:.6rem}
+.grid{display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.soon{
+  display:inline-block; background:var(--sun); color:#3b2a06; font-weight:700; font-size:.85rem;
+  padding:.1rem .7rem; border-radius:999px; margin-bottom:.6rem;
+}
+
+/* ---------- home ---------- */
+.mission{max-width:1040px; margin:0 auto; padding:clamp(2.5rem,6vw,4.5rem) 1.25rem 1rem}
+.mission-statement{font-size:clamp(1.25rem,2.6vw,1.6rem); line-height:1.5; max-width:44rem; margin:0 0 2rem}
+.pillar{padding-top:1.7rem}
+.pillar::before{
+  content:""; position:absolute; left:1rem; right:2.2rem; top:-.55rem; height:.85rem; border-radius:999px; opacity:.75;
+}
+.pillar.p1::before{background:var(--petal)}
+.pillar.p2::before{background:var(--river)}
+.pillar.p3::before{background:var(--moss)}
+.band{max-width:1040px; margin:2.5rem auto 0; padding:0 1.25rem}
+.teaser{
+  display:flex; flex-wrap:wrap; gap:1.2rem; align-items:center; justify-content:space-between;
+  background:linear-gradient(120deg,#DCEBD8,#D3E7EA); border-radius:var(--blob-a); padding:1.8rem 2rem;
+  border:2px solid rgba(44,90,75,.14);
+}
+.teaser h2{margin:0}
+.teaser p{margin:.2rem 0 0}
+.tile{display:flex; gap:1rem; align-items:flex-start; text-decoration:none; color:inherit}
+.tile:hover h3{text-decoration:underline}
+.tile p{margin:0; color:var(--ink-soft); font-size:.98rem}
+
+/* ---------- quiz ---------- */
+.quiz-tabs{display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.4rem}
+.tab{
+  font-family:var(--body); font-weight:700; font-size:1rem; cursor:pointer;
+  padding:.55rem 1.1rem; border-radius:999px; border:2px solid var(--fern); background:transparent; color:var(--fern);
+}
+.tab[aria-pressed="true"]{background:var(--fern); color:#fff}
+.quiz-box{max-width:42rem}
+.progress{height:10px; background:rgba(44,90,75,.14); border-radius:999px; overflow:hidden; margin:.4rem 0 1.2rem}
+.progress span{display:block; height:100%; background:var(--moss); border-radius:999px; transition:width .3s ease}
+.quiz-intro{margin:0 0 1rem; color:var(--ink-soft)}
+.quiz-note{font-size:.9rem; color:var(--ink-soft); margin-top:1.8rem; max-width:42rem}
+.q-count{font-size:.95rem; color:var(--ink-soft); margin:0}
+.q-text{font-family:var(--display); font-weight:400; font-size:clamp(1.7rem,4vw,2.2rem); line-height:1.15; color:var(--fern); margin:0 0 1.1rem}
+.opts{display:grid; gap:.7rem; margin-bottom:1rem}
+.opt{
+  text-align:left; font-family:var(--body); font-weight:700; font-size:1.05rem; color:var(--ink);
+  background:var(--paper); border:2px solid rgba(44,90,75,.22); border-radius:18px 26px 18px 26px / 26px 18px 26px 18px;
+  padding:.85rem 1.1rem; cursor:pointer; transition:background .15s ease, border-color .15s ease;
+}
+.opt:hover:not(:disabled){background:#EAF4EC; border-color:var(--fern)}
+.opt:disabled{cursor:default; color:var(--ink)}
+.opt.good{background:#D7EBCF; border-color:#4C8A48}
+.opt.ok{background:#FBEBC6; border-color:#C99628}
+.opt.miss{background:#F8DAD5; border-color:#C4665C}
+.feedback{background:rgba(255,255,255,.8); border-left:6px solid var(--river); border-radius:6px 20px 20px 6px; padding:1rem 1.2rem; margin-bottom:1rem}
+.feedback strong{display:block; font-size:1.1rem; margin-bottom:.2rem}
+.result{text-align:left}
+.result .big{font-family:var(--display); font-size:clamp(2.2rem,6vw,3.2rem); color:var(--fern); line-height:1.05; margin:0 0 .5rem}
+.score{font-size:1.2rem; margin-bottom:1rem}
+
+/* ---------- content lists ---------- */
+.empty{
+  display:flex; gap:1rem; align-items:flex-start;
+  border:2.5px dashed rgba(76,140,166,.55); border-radius:var(--blob-a); padding:1.6rem; background:rgba(255,255,255,.5);
+}
+.empty .icon{color:var(--river)}
+.empty p{margin:0; color:var(--ink-soft)}
+.empty h3{margin-bottom:.2rem}
+.stack{display:grid; gap:1.2rem}
+.meta{font-size:.92rem; color:var(--ink-soft); margin:0 0 .3rem}
+.gallery{display:grid; gap:1rem; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); margin-top:.8rem}
+.frame{
+  aspect-ratio:4/3; display:grid; place-items:center; text-align:center; padding:1rem;
+  background:linear-gradient(135deg,#E3EFE2,#DBEAEE); border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-a);
+  color:var(--ink-soft); font-size:.95rem;
+}
+.frame:nth-child(even){border-radius:var(--blob-b)}
+.frame .icon{color:var(--moss); display:block; margin:0 auto .3rem}
+.frame img{width:100%; height:100%; object-fit:cover; border-radius:inherit}
+.section-gap{margin-top:3rem}
+
+/* ---------- footer ---------- */
+.site-footer{margin-top:2rem; padding:0 1.25rem 2.5rem; text-align:center; color:var(--ink-soft)}
+.site-footer .foot-inner{max-width:44rem; margin:0 auto}
+.site-footer p{margin:.3rem 0; font-size:.95rem}
+
+@media (max-width:760px){
+  .hero-inner{grid-template-columns:1fr; padding-bottom:clamp(10rem,44vw,16rem)}
+  .avatar-wrap{justify-self:start; max-width:170px}
+  .hero-scene{height:46%}
+  .site-header{justify-content:center; gap:.2rem}
+  .nav{flex-wrap:nowrap; overflow-x:auto; width:100%; padding-bottom:.2rem; -webkit-overflow-scrolling:touch}
+  .nav a{white-space:nowrap; padding:.35rem .7rem; font-size:.92rem}
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-leaf" viewBox="0 0 48 48"><path d="M9 39C9 21 21 9 40 8C40 27 29 39 11 39Z"/><path d="M9 39L28 19"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 48 48"><path d="M24 7C24 7 12 21 12 30a12 12 0 0 0 24 0C36 21 24 7 24 7Z"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 48 48"><path d="M13 21A12 12 0 0 1 36 16"/><path d="M36 16L37 8M36 16L28 15"/><path d="M35 27A12 12 0 0 1 12 32"/><path d="M12 32L11 40M12 32L20 33"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 48 48"><g fill="currentColor" stroke="none"><ellipse cx="24" cy="31" rx="9" ry="7"/><circle cx="11" cy="23" r="4"/><circle cx="19" cy="14" r="4"/><circle cx="29" cy="14" r="4"/><circle cx="37" cy="23" r="4"/></g></symbol>
+  <symbol id="i-pen" viewBox="0 0 48 48"><path d="M8 40L10 30L32 8L40 16L18 38Z"/><path d="M28 12L36 20"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 48 48"><rect x="18" y="6" width="12" height="22" rx="6"/><path d="M12 24a12 12 0 0 0 24 0M24 36V42M17 42H31"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 48 48"><path d="M24 40C8 28 6 18 12 12C17 7 22 10 24 14C26 10 31 7 36 12C42 18 40 28 24 40Z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 48 48"><path d="M24 6L29 18L42 19L32 28L35 41L24 34L13 41L16 28L6 19L19 18Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="24" rx="5"/><circle cx="24" cy="26" r="7"/><path d="M17 14L20 8H28L31 14"/></symbol>
+  <symbol id="i-sign" viewBox="0 0 48 48"><rect x="12" y="8" width="24" height="32" rx="4"/><path d="M18 20H30M18 27H30M18 34H26"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 48 48"><circle cx="24" cy="24" r="7"/><path d="M24 6V11M24 37V42M6 24H11M37 24H42M11 11L15 15M33 33L37 37M37 11L33 15M15 33L11 37"/></symbol>
+</svg>
+
+<header class="site-header">
+  <a class="brand" href="#/home" aria-label="Our World of Wildlife, home">
+    <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+    <span>Our World of Wildlife</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#/home" data-nav="home">Home</a>
+    <a href="#/quiz" data-nav="quiz">Quizzes</a>
+    <a href="#/blog" data-nav="blog">Blog</a>
+    <a href="#/sanctuary" data-nav="sanctuary">Sanctuary</a>
+    <a href="#/magazine" data-nav="magazine">Magazine</a>
+    <a href="#/action" data-nav="action">Take action</a>
+    <a href="#/inspirations" data-nav="inspirations">Inspirations</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ HOME ============ -->
+  <div data-view="home">
+    <section class="hero" aria-labelledby="home-title">
+      <div class="hero-inner">
+        <div>
+          <h1 id="home-title" tabindex="-1">Our World of Wildlife</h1>
+          <p class="lead">Hi, I'm River! I care about animals, forests, oceans and everything that lives on our planet. Come explore, learn and help me take care of it.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#/quiz">Take a quiz</a>
+            <a class="btn alt" href="#/mission">Read our mission</a>
+          </div>
+        </div>
+
+        <div class="avatar-wrap">
+          <div class="bubble">Hi, I'm River!</div>
+          <!-- Illustrated avatar placeholder: swap colors or shapes to match River -->
+          <svg class="avatar" viewBox="0 0 200 200" role="img" aria-label="Illustration of River, a smiling girl with long brown hair, a backwards navy cap and a tie-dye smiley shirt">
+            <defs>
+              <filter id="avWc" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+              <filter id="avBg" x="-15%" y="-15%" width="130%" height="130%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="9" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+                <feGaussianBlur in="d" stdDeviation="1.2"/>
+              </filter>
+              <linearGradient id="skinG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D9C4"/><stop offset="1" stop-color="#EDBB9E"/></linearGradient>
+              <linearGradient id="hairG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6B4732"/><stop offset="1" stop-color="#3A2519"/></linearGradient>
+              <linearGradient id="capG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34406A"/><stop offset="1" stop-color="#1F2848"/></linearGradient>
+              <linearGradient id="grayG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C4C1BB"/><stop offset="1" stop-color="#A9A6A0"/></linearGradient>
+              <radialGradient id="dyeG"><stop offset="0" stop-color="#6D5BD0"/><stop offset=".3" stop-color="#38B2D8"/><stop offset=".55" stop-color="#6ACD8B"/><stop offset=".78" stop-color="#F6C846"/><stop offset="1" stop-color="#F06B8B"/></radialGradient>
+              <radialGradient id="blushG"><stop offset="0" stop-color="#E7867F" stop-opacity=".6"/><stop offset="1" stop-color="#E7867F" stop-opacity="0"/></radialGradient>
+              <pattern id="mesh" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#5A6A98" opacity=".55"/></pattern>
+            </defs>
+
+            <!-- watercolor wash -->
+            <g filter="url(#avBg)">
+              <path d="M100 8C150 6 192 44 190 100C188 154 148 194 98 192C46 190 8 152 10 98C12 48 50 10 100 8Z" fill="#CFE4D6" opacity=".95"/>
+              <path d="M112 20C160 24 186 66 178 112C170 156 132 184 92 178C58 172 26 140 24 100C22 60 60 22 112 20Z" fill="#BEDCE2" opacity=".5"/>
+            </g>
+
+            <g filter="url(#avWc)">
+              <!-- long hair behind -->
+              <path d="M52 88C46 56 66 32 100 32C134 32 154 56 148 88L152 152L48 152Z" fill="url(#hairG)"/>
+              <!-- neck -->
+              <path d="M89 124H111V148C107 155 93 155 89 148Z" fill="#E9B696"/>
+              <!-- shirt: black raglan sleeves and gray body -->
+              <path d="M24 198C26 164 56 146 86 144L114 144C144 146 174 164 176 198Z" fill="#202125"/>
+              <path d="M86 146C92 157 108 157 114 146L140 198L60 198Z" fill="url(#grayG)"/>
+              <path d="M85 145C91 160 109 160 115 145" fill="none" stroke="#202125" stroke-width="5" stroke-linecap="round"/>
+              <!-- tie-dye smiley -->
+              <circle cx="100" cy="178" r="16" fill="url(#dyeG)"/>
+              <ellipse cx="94" cy="174" rx="2" ry="3.4" fill="#141414"/>
+              <ellipse cx="106" cy="174" rx="2" ry="3.4" fill="#141414"/>
+              <path d="M90 181Q100 191 110 181" fill="none" stroke="#141414" stroke-width="2.6" stroke-linecap="round"/>
+              <!-- face -->
+              <path d="M64 96C64 78 80 72 100 72C120 72 136 78 136 96C136 120 122 136 100 136C78 136 64 120 64 96Z" fill="url(#skinG)"/>
+              <!-- long hair in front of shoulders -->
+              <path d="M64 82C56 104 58 128 52 160C63 162 72 152 74 138C76 120 70 102 72 84Z" fill="url(#hairG)"/>
+              <path d="M136 82C144 104 142 128 148 160C137 162 128 152 126 138C124 120 130 102 128 84Z" fill="url(#hairG)"/>
+              <path d="M60 110C58 128 58 142 56 156" fill="none" stroke="#9A6E4C" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+              <path d="M140 110C142 128 142 142 144 156" fill="none" stroke="#9A6E4C" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+            </g>
+
+            <!-- face details -->
+            <ellipse cx="76" cy="120" rx="12" ry="8" fill="url(#blushG)"/>
+            <ellipse cx="124" cy="120" rx="12" ry="8" fill="url(#blushG)"/>
+            <g fill="#C99070" opacity=".5">
+              <circle cx="92" cy="114" r=".9"/><circle cx="96" cy="116" r=".8"/><circle cx="104" cy="116" r=".8"/><circle cx="108" cy="114" r=".9"/>
+              <circle cx="84" cy="117" r=".8"/><circle cx="116" cy="117" r=".8"/>
+            </g>
+            <path d="M76 98Q85 94 93 97" fill="none" stroke="#4A2F20" stroke-width="2" stroke-linecap="round"/>
+            <path d="M107 97Q115 94 124 98" fill="none" stroke="#4A2F20" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="85" cy="107" rx="4.4" ry="4.8" fill="#3A281D"/>
+            <ellipse cx="115" cy="107" rx="4.4" ry="4.8" fill="#3A281D"/>
+            <circle cx="86.5" cy="105.4" r="1.4" fill="#fff"/>
+            <circle cx="116.5" cy="105.4" r="1.4" fill="#fff"/>
+            <path d="M79 103Q85 100 91 103M109 103Q115 100 121 103" fill="none" stroke="#3A281D" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+            <path d="M99 111Q96 118 101 119" fill="none" stroke="#C48A66" stroke-width="1.7" stroke-linecap="round" opacity=".75"/>
+            <!-- big grin -->
+            <path d="M82 122Q100 143 118 122Q100 128 82 122Z" fill="#7C2F30" stroke="#B45A50" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M85 123Q100 129 115 123L114 127Q100 133 86 127Z" fill="#FFFFFF"/>
+            <path d="M79 120Q77 124 80 127M121 120Q123 124 120 127" fill="none" stroke="#C48A66" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+
+            <!-- backwards navy cap -->
+            <g filter="url(#avWc)">
+              <path d="M56 82C54 46 74 22 100 22C126 22 146 46 144 82C128 74 72 74 56 82Z" fill="url(#capG)"/>
+              <path d="M56 82C54 46 74 22 100 22C126 22 146 46 144 82C128 74 72 74 56 82Z" fill="url(#mesh)"/>
+              <path d="M58 78C78 70 122 70 142 78L140 88C122 80 78 80 60 88Z" fill="#232C4B"/>
+              <circle cx="100" cy="22.5" r="3" fill="#3F4C7A"/>
+            </g>
+            <circle cx="100" cy="80" r="3.2" fill="#CDA9DB"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Watercolor forest scene -->
+      <svg class="hero-scene" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="wc" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.014 0.024" numOctaves="3" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G" result="d"/>
+            <feGaussianBlur in="d" stdDeviation="0.9"/>
+          </filter>
+          <filter id="wcSoft" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="3" seed="12" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G" result="d"/>
+            <feGaussianBlur in="d" stdDeviation="2.4"/>
+          </filter>
+          <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+          <linearGradient id="mistG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F4FAF6" stop-opacity="0"/>
+            <stop offset=".55" stop-color="#F4FAF6" stop-opacity=".7"/>
+            <stop offset="1" stop-color="#F4FAF6" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#B4D5DF"/>
+            <stop offset="1" stop-color="#6FA5BE"/>
+          </linearGradient>
+          <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#B9D4CB"/><stop offset="1" stop-color="#D3E5DC"/>
+          </linearGradient>
+          <linearGradient id="hillMid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9FC4AB"/><stop offset="1" stop-color="#8DB799"/>
+          </linearGradient>
+          <linearGradient id="hillNear" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7FAB78"/><stop offset="1" stop-color="#5F9163"/>
+          </linearGradient>
+
+          <symbol id="fir" viewBox="0 0 100 160">
+            <path d="M50 3L74 48L62 46L84 88L70 86L94 132L6 132L32 86L18 88L40 46L27 48Z" fill="currentColor"/>
+            <path d="M50 3L74 48L62 46L84 88L70 86L94 132L52 132Z" fill="#0d2a22" opacity=".16"/>
+            <path d="M50 3L27 48L40 46L18 88L32 86L6 132L22 132L44 62Z" fill="#fff" opacity=".12"/>
+            <path d="M47 130H53V158H47Z" fill="#6B5140"/>
+          </symbol>
+          <symbol id="oak" viewBox="0 0 120 150">
+            <path d="M56 88L64 88L68 148L52 148Z" fill="#6B5140"/>
+            <g fill="currentColor">
+              <ellipse cx="60" cy="46" rx="36" ry="32"/><ellipse cx="34" cy="64" rx="26" ry="22"/>
+              <ellipse cx="88" cy="62" rx="27" ry="23"/><ellipse cx="60" cy="74" rx="32" ry="20"/>
+            </g>
+            <g fill="#fff" opacity=".14"><ellipse cx="48" cy="36" rx="20" ry="13"/><ellipse cx="26" cy="58" rx="12" ry="8"/></g>
+            <g fill="#0d2a22" opacity=".16"><ellipse cx="76" cy="68" rx="24" ry="13"/><ellipse cx="92" cy="70" rx="16" ry="11"/></g>
+          </symbol>
+          <symbol id="reed" viewBox="0 0 60 110">
+            <g fill="none" stroke="#6E8F5A" stroke-width="2.6" stroke-linecap="round">
+              <path d="M10 108C10 70 14 40 18 14"/><path d="M26 108C26 76 28 50 34 26"/><path d="M42 108C42 72 38 50 32 34"/>
+            </g>
+            <g fill="#7A5A3F"><ellipse cx="18" cy="16" rx="3.2" ry="9"/><ellipse cx="34" cy="28" rx="3.2" ry="9"/></g>
+          </symbol>
+        </defs>
+
+        <!-- far hills -->
+        <path d="M0 262C160 204 300 232 460 252C620 272 720 194 900 204C1080 214 1250 262 1440 224L1440 520L0 520Z" fill="url(#hillFar)" filter="url(#wcSoft)"/>
+        <g filter="url(#wc)" opacity=".75">
+          <use href="#fir" x="40" y="180" width="56" height="90" style="color:#96BFAB"/>
+          <use href="#fir" x="118" y="168" width="66" height="106" style="color:#86B39C"/>
+          <use href="#fir" x="205" y="188" width="50" height="80" style="color:#96BFAB"/>
+          <use href="#fir" x="288" y="174" width="62" height="100" style="color:#86B39C"/>
+          <use href="#fir" x="1030" y="176" width="60" height="96" style="color:#86B39C"/>
+          <use href="#fir" x="1108" y="164" width="70" height="112" style="color:#96BFAB"/>
+          <use href="#fir" x="1198" y="182" width="54" height="86" style="color:#86B39C"/>
+          <use href="#fir" x="1278" y="170" width="66" height="106" style="color:#96BFAB"/>
+          <use href="#fir" x="1364" y="184" width="52" height="84" style="color:#86B39C"/>
+        </g>
+        <!-- mist between layers -->
+        <rect x="0" y="236" width="1440" height="90" fill="url(#mistG)"/>
+
+        <!-- mid hills -->
+        <path d="M0 332C200 282 380 322 560 308C760 294 900 256 1100 286C1250 308 1360 296 1440 286L1440 520L0 520Z" fill="url(#hillMid)" filter="url(#wc)"/>
+
+        <!-- river -->
+        <g filter="url(#wc)">
+          <path d="M712 294C690 334 770 354 730 398C690 442 560 454 520 520L900 520C900 472 800 444 822 404C844 364 782 344 752 294Z" fill="url(#riverG)"/>
+        </g>
+        <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+          <path class="river-line" d="M734 302C722 340 792 368 772 408C752 448 690 474 690 520" stroke-opacity=".6" stroke-width="3"/>
+          <path d="M760 330C772 352 792 372 782 396" stroke-opacity=".35" stroke-width="2"/>
+          <path d="M650 470C690 458 720 452 748 440" stroke-opacity=".3" stroke-width="2"/>
+          <path d="M760 492C790 480 820 470 850 462" stroke-opacity=".28" stroke-width="2"/>
+        </g>
+
+        <!-- trees and reeds near river -->
+        <g filter="url(#wc)">
+          <use href="#oak" x="538" y="230" width="104" height="130" style="color:#78A272"/>
+          <use href="#fir" x="858" y="220" width="70" height="112" style="color:#5F927B"/>
+          <use href="#oak" x="936" y="240" width="90" height="112" style="color:#86AE79"/>
+          <use href="#reed" x="656" y="372" width="34" height="62" style="color:#6E8F5A"/>
+          <use href="#reed" x="820" y="392" width="38" height="70" style="color:#6E8F5A"/>
+        </g>
+
+        <!-- foreground hills -->
+        <path d="M0 402C120 362 260 382 380 422C470 450 560 472 620 520L0 520Z" fill="url(#hillNear)" filter="url(#wc)"/>
+        <path d="M1440 382C1320 352 1180 382 1080 432C1000 472 940 492 880 520L1440 520Z" fill="url(#hillNear)" filter="url(#wc)"/>
+        <g filter="url(#wc)">
+          <use href="#oak" x="46" y="276" width="168" height="210" style="color:#568B62"/>
+          <use href="#fir" x="234" y="300" width="92" height="146" style="color:#437A5E"/>
+          <use href="#fir" x="1182" y="288" width="106" height="170" style="color:#437A5E"/>
+          <use href="#oak" x="1288" y="306" width="138" height="172" style="color:#568B62"/>
+        </g>
+
+        <!-- wildflowers -->
+        <g opacity=".9">
+          <circle cx="330" cy="470" r="4" fill="#E7A7A0"/><circle cx="368" cy="486" r="3.4" fill="#F0CD7A"/>
+          <circle cx="420" cy="500" r="4" fill="#E7A7A0"/><circle cx="286" cy="492" r="3.2" fill="#F5F0E6"/>
+          <circle cx="1030" cy="486" r="4" fill="#F0CD7A"/><circle cx="1090" cy="470" r="3.4" fill="#E7A7A0"/>
+          <circle cx="1150" cy="498" r="4" fill="#F5F0E6"/><circle cx="1010" cy="506" r="3.2" fill="#E7A7A0"/>
+        </g>
+
+        <!-- birds -->
+        <g fill="none" stroke="#2C5A4B" stroke-width="2.6" stroke-linecap="round" opacity=".65">
+          <path d="M600 110q10-12 20 0q10-12 20 0"/>
+          <path d="M660 80q8-10 16 0q8-10 16 0"/>
+        </g>
+      </svg>
+    </section>
+
+    <section class="mission" id="mission" aria-labelledby="mission-title">
+      <h2 id="mission-title">Our mission</h2>
+      <p class="mission-statement">We stand up for climate justice, say no to single-use plastic and give old things a second life through upcycling and recycling.</p>
+      <div class="grid">
+        <article class="card pillar p1">
+          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+          <h3>Climate justice</h3>
+          <p>We all share one planet, but climate change hits some people and places harder than others. We speak up so everyone gets a fair and healthy future.</p>
+        </article>
+        <article class="card pillar p2">
+          <svg class="icon" aria-hidden="true"><use href="#i-drop"/></svg>
+          <h3>Less single-use</h3>
+          <p>Bags, straws and wrappers get used for a few minutes and then stick around for years. We choose things we can use again and again.</p>
+        </article>
+        <article class="card pillar p3">
+          <svg class="icon" aria-hidden="true"><use href="#i-loop"/></svg>
+          <h3>Upcycle and recycle</h3>
+          <p>Before something goes in the trash, we ask if it can become something new. Old jeans can turn into a tote bag and a jar can turn into a pencil holder.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="teaser-title">
+      <div class="teaser">
+        <div>
+          <h2 id="teaser-title">How kind to nature are you?</h2>
+          <p>Find out with a quiz, or try the wild but true facts.</p>
+        </div>
+        <a class="btn" href="#/quiz">Start a quiz</a>
+      </div>
+    </section>
+
+    <section class="band section-gap" aria-labelledby="explore-title">
+      <h2 id="explore-title">Explore the site</h2>
+      <div class="grid">
+        <a class="card tile" href="#/blog"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><h3>River's blog</h3><p>Stories and ideas from River.</p></div></a>
+        <a class="card tile" href="#/sanctuary"><svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg><div><h3>Sanctuary updates</h3><p>News and photos from the animals.</p></div></a>
+        <a class="card tile" href="#/magazine"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><div><h3>Literary magazine</h3><p>Poems, stories and past writings.</p></div></a>
+        <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>Petitions, donations and yoga class.</p></div></a>
+        <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Podcast, projects and people I admire.</p></div></a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="view" data-view="quiz" hidden aria-labelledby="quiz-title">
+    <h1 class="view-title" id="quiz-title" tabindex="-1">Quizzes</h1>
+    <p class="view-intro">Pick a quiz to test your wild fact knowledge, your wildlife smarts or how kind to nature you are.</p>
+    <div class="quiz-tabs" id="quiz-tabs"></div>
+    <div class="quiz-box" id="quiz-stage" aria-live="polite"></div>
+    <p class="quiz-note">Facts come from sources like NOAA, the EPA and animal welfare groups. Some numbers are estimates and can change as scientists learn more.</p>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section class="view" data-view="blog" hidden aria-labelledby="blog-title">
+    <h1 class="view-title" id="blog-title" tabindex="-1">River's blog</h1>
+    <p class="view-intro">Stories, discoveries and ideas for helping the planet.</p>
+    <div class="empty" id="blog-empty">
+      <svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg>
+      <div><span class="soon">Coming soon</span><h3>The first post is on its way</h3><p>River is working on her first blog post. Check back soon.</p></div>
+    </div>
+    <div class="stack" id="blog-list"></div>
+  </section>
+
+  <!-- ============ SANCTUARY ============ -->
+  <section class="view" data-view="sanctuary" hidden aria-labelledby="sanctuary-title">
+    <h1 class="view-title" id="sanctuary-title" tabindex="-1">Sanctuary updates</h1>
+    <p class="view-intro">News from the animals and the people who care for them.</p>
+    <div class="empty" id="sanctuary-empty">
+      <svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg>
+      <div><span class="soon">Coming soon</span><h3>No updates yet</h3><p>Sanctuary news and stories will show up here.</p></div>
+    </div>
+    <div class="stack" id="sanctuary-list"></div>
+
+    <h2 class="section-gap">Photo gallery</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ============ MAGAZINE ============ -->
+  <section class="view" data-view="magazine" hidden aria-labelledby="magazine-title">
+    <h1 class="view-title" id="magazine-title" tabindex="-1">Literary magazine</h1>
+    <p class="view-intro">Poems, stories and writing inspired by the natural world.</p>
+    <div class="empty" id="magazine-empty">
+      <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+      <div><span class="soon">Coming soon</span><h3>The first issue is being written</h3><p>Past writings will be collected here too.</p></div>
+    </div>
+    <div class="stack" id="magazine-list"></div>
+  </section>
+
+  <!-- ============ TAKE ACTION ============ -->
+  <section class="view" data-view="action" hidden aria-labelledby="action-title">
+    <h1 class="view-title" id="action-title" tabindex="-1">Take action</h1>
+    <p class="view-intro">Small choices add up. Here are the ways you will be able to help.</p>
+    <div class="grid">
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg>
+        <span class="soon">Coming soon</span>
+        <h3>Petitions</h3>
+        <p>Add your voice to petitions that protect wildlife and wild places.</p>
+      </article>
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        <span class="soon">Coming soon</span>
+        <h3>Donate</h3>
+        <p>Support the animals and the projects River cares about.</p>
+      </article>
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg>
+        <span class="soon">Coming soon</span>
+        <h3>Yoga class</h3>
+        <p>Stretch, breathe and connect with nature. Sign-ups will open here.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ INSPIRATIONS ============ -->
+  <section class="view" data-view="inspirations" hidden aria-labelledby="insp-title">
+    <h1 class="view-title" id="insp-title" tabindex="-1">Inspirations</h1>
+    <p class="view-intro">Projects and people who make River want to protect the planet.</p>
+    <div class="grid">
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>
+        <span class="soon">Coming soon</span>
+        <h3>Hello Earthling podcast</h3>
+        <p>River's very own podcast about nature and taking care of our world.</p>
+      </article>
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+        <h3>Fridays for Future</h3>
+        <p>A worldwide movement of young people who ask leaders to act on climate change.</p>
+        <p><a href="https://fridaysforfuture.org" target="_blank" rel="noopener noreferrer">Visit Fridays for Future (opens in a new tab)</a></p>
+      </article>
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-star"/></svg>
+        <h3>Greta Thunberg</h3>
+        <p>A Swedish climate activist who began striking from school in 2018. Her protest helped inspire young people around the world to speak up.</p>
+      </article>
+      <article class="card">
+        <svg class="icon" aria-hidden="true"><use href="#i-star"/></svg>
+        <span class="soon">Coming soon</span>
+        <h3>Bonnie Wright</h3>
+        <p>River will share why she looks up to Bonnie Wright.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 17C100 2 200 32 300 17S500 2 600 17S800 32 900 17S1100 2 1200 17" fill="none" stroke="#4C8CA6" stroke-opacity=".6" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <div class="foot-inner">
+    <p><strong>Our World of Wildlife</strong> is a kid-led project managed by River's family.</p>
+    <p>Support climate justice. Reduce single-use. Upcycle and recycle.</p>
+    <p>&copy; <span id="year"></span> Our World of Wildlife</p>
+  </div>
+</footer>
+
+<noscript><p style="text-align:center;padding:1rem">This site needs JavaScript to show its pages. Please turn it on and reload.</p></noscript>
+
+<script>
+/* =====================================================
+   SITE CONTENT
+   Add items to these lists to fill in the site. Later this
+   can be swapped for a database and an admin login.
+   ===================================================== */
+const CONTENT = {
+  // { title, date: 'YYYY-MM-DD', category, excerpt }
+  posts: [],
+  // { title, date: 'YYYY-MM-DD', text }
+  sanctuary: [],
+  // { title, author, date: 'YYYY-MM-DD', text }
+  magazine: [],
+  // { src: 'images/photo.jpg', alt, caption }
+  gallery: []
+};
+
+/* =====================================================
+   QUIZZES
+   opts: { t: answer text, pts: points, note: optional extra tip }
+   Questions and answer choices are shuffled each time.
+   ===================================================== */
+const QUIZZES = {
+  wild: {
+    label: "Wild but true quiz",
+    intro: "Nine surprising facts about animals and our planet. Can you believe they are all true?",
+    good: "You got it!", ok: "Almost!", miss: "Surprising, right?",
+    results: [
+      { min: 0.8, title: "Fact finder!", text: "You know some wild facts. Tell a friend one you just learned." },
+      { min: 0.5, title: "Fact explorer", text: "Nice work. You just learned a few things most people never hear." },
+      { min: 0,   title: "Curious cub", text: "Now you have new facts to share. Try again to learn even more." }
+    ],
+    questions: [
+      { q: "Which day of the year is one of the busiest for animal shelters?",
+        opts: [{t:"July 5, the day after the Fourth of July",pts:1},{t:"December 26",pts:0},{t:"Valentine's Day",pts:0},{t:"The first day of school",pts:0}],
+        explain: "Fireworks scare many pets so much that they bolt from home. Around July 4th and 5th, shelters can see 30% to 60% more lost pets. Keeping pets inside and making sure they wear a tag or have a microchip helps them get back home." },
+      { q: "Most paper receipts are printed on heat-sensitive paper with a special coating. What does that mean for the recycling bin?",
+        opts: [{t:"They usually cannot be recycled and can contaminate other paper",pts:1},{t:"Receipts are the easiest paper of all to recycle",pts:0},{t:"They are only recyclable if you fold them",pts:0},{t:"They make the best compost for a garden",pts:0}],
+        explain: "Most store receipts are thermal paper, which has a chemical coating that reacts to heat. That coating usually keeps them out of the recycling bin, so they end up in the trash." },
+      { q: "Making paper receipts uses up an estimated how many trees each year in the United States?",
+        opts: [{t:"A few hundred",pts:0},{t:"About 5,000",pts:0},{t:"Millions",pts:1},{t:"None, because receipt paper is made from recycled paper",pts:0}],
+        explain: "Estimates range from about 3 million to 10 million trees a year, plus billions of gallons of water. Saying no thanks to a paper receipt or choosing an e-receipt adds up fast." },
+      { q: "Recycling an aluminum can uses about how much of the energy needed to make a brand new one?",
+        opts: [{t:"Less than 5%",pts:1},{t:"About half",pts:0},{t:"About the same",pts:0},{t:"More, because it has to be melted",pts:0}],
+        explain: "Recycling aluminum uses less than 5% of the energy of making it from scratch, and aluminum can be recycled again and again." },
+      { q: "How many times can a glass bottle be recycled?",
+        opts: [{t:"Just once",pts:0},{t:"About ten times",pts:0},{t:"Over and over with no loss in quality",pts:1},{t:"Never",pts:0}],
+        explain: "Glass can be melted down and made into new bottles again and again without getting weaker. A glass bottle left in a landfill can take an estimated million years to break down." },
+      { q: "How long can a piece of plastic take to break down in a landfill?",
+        opts: [{t:"A few weeks",pts:0},{t:"About a year",pts:0},{t:"100 to 400 years",pts:1},{t:"About 10 years",pts:0}],
+        explain: "Scientists estimate that plastic can take 100 to 400 years to break down. That is why using things again beats throwing them away." },
+      { q: "About how much of the oxygen we breathe is made by the ocean?",
+        opts: [{t:"Almost none",pts:0},{t:"About a tenth",pts:0},{t:"About half",pts:1},{t:"All of it",pts:0}],
+        explain: "Tiny ocean plants called phytoplankton make about half of the oxygen on Earth. Healthy oceans help with every breath you take." },
+      { q: "How much honey does one worker honeybee make in her whole life?",
+        opts: [{t:"About a cup",pts:0},{t:"About a tablespoon",pts:0},{t:"About 1/12 of a teaspoon",pts:1},{t:"About a gallon",pts:0}],
+        explain: "A worker honeybee makes only about 1/12 of a teaspoon of honey in her whole life. One jar of honey is the life's work of hundreds of bees." },
+      { q: "Why are floating plastic bags dangerous to sea turtles?",
+        opts: [{t:"They make the ocean water too salty",pts:0},{t:"Turtles can mistake them for jellyfish and try to eat them",pts:1},{t:"They scare turtles away from beaches",pts:0},{t:"They are too heavy for turtles to swim past",pts:0}],
+        explain: "Jellyfish are a favorite food for some sea turtles, and a floating bag looks a lot like one. Reusable bags keep them out of the ocean." }
+    ]
+  },
+  wildlife: {
+    label: "Wildlife quiz",
+    intro: "Eleven questions about animals and where they live.",
+    good: "That is right!", ok: "Almost!", miss: "Not quite.",
+    results: [
+      { min: 0.8, title: "Wildlife expert!", text: "You know your animals. Share what you learned with a friend." },
+      { min: 0.5, title: "Nature explorer", text: "Nice work. Keep exploring and you will learn even more." },
+      { min: 0,   title: "Curious cub", text: "Every expert starts here. Try the quiz again to learn more." }
+    ],
+    questions: [
+      { q: "Which animal is the largest on Earth?",
+        opts: [{t:"African elephant",pts:0},{t:"Blue whale",pts:1},{t:"Giraffe",pts:0},{t:"Great white shark",pts:0}],
+        explain: "Blue whales are the largest animals known to have ever lived, bigger than any dinosaur we know of." },
+      { q: "What do bees do that helps plants make fruit and seeds?",
+        opts: [{t:"They pollinate by carrying pollen from flower to flower",pts:1},{t:"They dig up the soil",pts:0},{t:"They chase away birds",pts:0},{t:"They make it rain",pts:0}],
+        explain: "Pollinators like bees, butterflies and bats help many of the foods we eat to grow." },
+      { q: "What is a group of wolves called?",
+        opts: [{t:"A herd",pts:0},{t:"A pack",pts:1},{t:"A flock",pts:0},{t:"A school",pts:0}],
+        explain: "A wolf pack is usually a family, with parents and their pups." },
+      { q: "Every year monarch butterflies fly thousands of miles to warmer places. What is this long trip called?",
+        opts: [{t:"Hibernation",pts:0},{t:"Camouflage",pts:0},{t:"Migration",pts:1},{t:"Metamorphosis",pts:0}],
+        explain: "Migration is when animals travel long distances with the seasons." },
+      { q: "Which of these animals is a mammal?",
+        opts: [{t:"Shark",pts:0},{t:"Penguin",pts:0},{t:"Frog",pts:0},{t:"Dolphin",pts:1}],
+        explain: "Dolphins breathe air, feed their babies milk and are warm-blooded, so they are mammals and not fish." },
+      { q: "Coral reefs cover a tiny part of the ocean. About how much of ocean life depends on them?",
+        opts: [{t:"About 1 in 100",pts:0},{t:"About 1 in 10",pts:0},{t:"About 1 in 4",pts:1},{t:"About 3 in 4",pts:0}],
+        explain: "Scientists estimate that about a quarter of ocean species depend on coral reefs at some point in their lives." },
+      { q: "How many hearts does an octopus have?",
+        opts: [{t:"One",pts:0},{t:"Two",pts:0},{t:"Three",pts:1},{t:"Four",pts:0}],
+        explain: "An octopus has three hearts and blue blood. Two hearts pump blood through the gills and one pumps it to the rest of the body." },
+      { q: "What shape is wombat poop?",
+        opts: [{t:"Round like a ball",pts:0},{t:"Cubes",pts:1},{t:"Star shapes",pts:0},{t:"Long like a stick",pts:0}],
+        explain: "Wombats poop cubes! Scientists think the shape helps it stay put so wombats can use it to mark their territory." },
+      { q: "Why do sea otters sometimes hold paws while they float and sleep?",
+        opts: [{t:"So they do not drift apart",pts:1},{t:"To keep their paws dry",pts:0},{t:"To play a game",pts:0},{t:"To keep sharks away",pts:0}],
+        explain: "Sleeping otters float in groups called rafts. Holding paws, or wrapping up in kelp, helps them stay together as the water moves them around." },
+      { q: "Which bird can remember human faces and even hold a grudge?",
+        opts: [{t:"Crow",pts:1},{t:"Flamingo",pts:0},{t:"Penguin",pts:0},{t:"Ostrich",pts:0}],
+        explain: "Scientists have found that crows can recognize faces and remember people who were unkind to them for years." },
+      { q: "What is a group of owls called?",
+        opts: [{t:"A parliament",pts:1},{t:"A murder",pts:0},{t:"A gaggle",pts:0},{t:"A pod",pts:0}],
+        explain: "A group of owls is called a parliament. A group of crows is a murder and a group of flamingos is a flamboyance." }
+    ]
+  },
+  kind: {
+    label: "Kind to nature quiz",
+    intro: "Seven everyday moments. Pick what you would do.",
+    good: "Great choice!", ok: "Good start!", miss: "Let us try a kinder way.",
+    results: [
+      { min: 0.8, title: "Nature's best friend!", text: "Your choices help the planet every day. Keep it up and inspire others." },
+      { min: 0.5, title: "Growing green", text: "You are on your way. Try one new kind habit this week." },
+      { min: 0,   title: "Little seedling", text: "Every big change starts small. Pick one thing from this quiz to try tomorrow." }
+    ],
+    questions: [
+      { q: "You are packing your lunch. What do you pick?",
+        opts: [
+          {t:"A reusable container and a cloth napkin",pts:2,note:"Nothing to throw away."},
+          {t:"A paper bag I can reuse a few times",pts:1,note:"Reusing it makes it even better."},
+          {t:"A new plastic bag every day",pts:0,note:"Plastic bags are used for minutes but can stick around for hundreds of years."}] },
+      { q: "Your favorite jeans have a hole in the knee. What now?",
+        opts: [
+          {t:"Patch them or turn them into shorts or a tote bag",pts:2,note:"That is upcycling. Old things get a second life."},
+          {t:"Give them to someone who can wear them",pts:1,note:"Sharing keeps clothes out of the trash."},
+          {t:"Toss them in the trash",pts:0,note:"Clothes in the trash end up in a landfill. Upcycling gives them new life."}] },
+      { q: "You are thirsty at the park.",
+        opts: [
+          {t:"Fill up my refillable water bottle",pts:2,note:"One bottle can replace hundreds of plastic ones."},
+          {t:"Buy a plastic bottle and recycle it",pts:1,note:"Recycling is good, and reusing is even better."},
+          {t:"Buy a plastic bottle and leave it on the bench",pts:0,note:"Litter can hurt animals and wash into rivers and oceans."}] },
+      { q: "You spot litter on the trail.",
+        opts: [
+          {t:"Pick it up with gloves and a grown-up nearby",pts:2,note:"Always ask a grown-up first and never touch anything sharp or dirty."},
+          {t:"Tell a grown-up so they can help",pts:1,note:"Asking for help is a safe and smart choice."},
+          {t:"Walk past it",pts:0,note:"Every piece of litter picked up helps wildlife."}] },
+      { q: "It is your birthday party. What about decorations?",
+        opts: [
+          {t:"Paper banners and decorations we can reuse",pts:2,note:"Fun to make and easy to keep for next year."},
+          {t:"Balloons that we pop and throw away carefully",pts:1,note:"Better than letting them go, but try reusable decorations too."},
+          {t:"Balloons we let float away into the sky",pts:0,note:"Balloons that float away come down as litter and can hurt animals."}] },
+      { q: "The cashier asks if you want a receipt.",
+        opts: [
+          {t:"No thanks, or ask for one by email",pts:2,note:"Fewer paper receipts means fewer trees used and less trash."},
+          {t:"Take it only if I need it for a return",pts:1,note:"That is fair. Just remember most receipts cannot go in the recycling bin."},
+          {t:"Take it and put it in the recycling bin",pts:0,note:"Most receipts have a coating that keeps them out of recycling."}] },
+      { q: "It is the Fourth of July and the fireworks are starting. What about the family dog?",
+        opts: [
+          {t:"Keep the dog inside in a quiet room with music on",pts:2,note:"Fireworks scare many pets. July 5 is one of the busiest days at animal shelters."},
+          {t:"Let the dog hang out in the yard",pts:0,note:"Scared dogs can jump fences and run away. Inside is safest."},
+          {t:"Bring the dog along to watch the fireworks",pts:0,note:"The loud noise can frighten dogs a lot, so it is best to leave them home."}] }
+    ]
+  }
+};
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') el.className = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  kids.flat().forEach(c => el.append(c instanceof Node ? c : document.createTextNode(c)));
+  return el;
+}
+const icon = id => {
+  const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  s.setAttribute('class', 'icon'); s.setAttribute('aria-hidden', 'true');
+  s.innerHTML = `<use href="#${id}"/>`;
+  return s;
+};
+const fmtDate = d => {
+  const t = new Date(d + 'T12:00:00');
+  return isNaN(t) ? '' : t.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+};
+
+/* ---------- router ---------- */
+const ROUTES = { home:'home', mission:'home', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
+const TITLES = { home:'Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function route(initial) {
+  const key = (location.hash.replace(/^#\/?/, '') || 'home').split('?')[0];
+  const view = ROUTES[key] || 'home';
+  $$('[data-view]').forEach(v => v.hidden = v.dataset.view !== view);
+  $$('[data-nav]').forEach(a => a.dataset.nav === view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  document.title = TITLES[view];
+  if (key === 'mission') {
+    $('#mission').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  } else {
+    window.scrollTo(0, 0);
+    const heading = $(`[data-view="${view}"] h1`);
+    if (heading && !initial) heading.focus({ preventScroll: true });
+  }
+}
+window.addEventListener('hashchange', () => route(false));
+
+/* ---------- quiz engine ---------- */
+const shuffle = arr => {
+  const r = [...arr];
+  for (let i = r.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [r[i], r[j]] = [r[j], r[i]];
+  }
+  return r;
+};
+const state = { id: 'wild', order: [], i: 0, score: 0, answered: false };
+function startQuiz(id) {
+  state.id = id; state.i = 0; state.score = 0; state.answered = false;
+  state.order = shuffle(QUIZZES[id].questions.map((_, k) => k));
+}
+function maxScore(quiz) { return quiz.questions.reduce((n, q) => n + Math.max(...q.opts.map(o => o.pts)), 0); }
+
+function renderTabs() {
+  const tabs = $('#quiz-tabs'); tabs.replaceChildren();
+  Object.entries(QUIZZES).forEach(([id, quiz]) => {
+    tabs.append(h('button', {
+      class: 'tab', type: 'button', 'aria-pressed': String(state.id === id),
+      onclick: () => { startQuiz(id); renderTabs(); renderQuiz(); }
+    }, quiz.label));
+  });
+}
+
+function renderQuiz(focusHeading) {
+  const quiz = QUIZZES[state.id];
+  const stage = $('#quiz-stage'); stage.replaceChildren();
+  const total = quiz.questions.length;
+
+  if (state.i >= total) {
+    const max = maxScore(quiz);
+    const ratio = state.score / max;
+    const res = quiz.results.find(r => ratio >= r.min);
+    stage.append(h('div', { class: 'result' },
+      h('p', { class: 'big', tabindex: '-1', id: 'quiz-focus' }, res.title),
+      h('p', { class: 'score' }, `You scored ${state.score} out of ${max}.`),
+      h('p', {}, res.text),
+      h('button', { class: 'btn', type: 'button', onclick: () => { startQuiz(state.id); renderQuiz(true); } }, 'Play again')
+    ));
+    if (focusHeading) $('#quiz-focus').focus();
+    return;
+  }
+
+  const q = quiz.questions[state.order[state.i]];
+  const opts = shuffle(q.opts);
+  const best = Math.max(...q.opts.map(o => o.pts));
+  const feedback = h('div', { class: 'feedback', hidden: '' });
+  const next = h('button', {
+    class: 'btn', type: 'button', hidden: '',
+    onclick: () => { state.i++; state.answered = false; renderQuiz(true); }
+  }, state.i === total - 1 ? 'See my results' : 'Next question');
+
+  const buttons = opts.map(o => h('button', {
+    class: 'opt', type: 'button',
+    onclick: e => {
+      if (state.answered) return;
+      state.answered = true; state.score += o.pts;
+      buttons.forEach((b, idx) => {
+        b.disabled = true;
+        if (opts[idx].pts === best) b.classList.add('good');
+      });
+      if (o.pts < best) e.currentTarget.classList.add(o.pts > 0 ? 'ok' : 'miss');
+      const head = o.pts === best ? quiz.good : (o.pts > 0 ? quiz.ok : quiz.miss);
+      feedback.replaceChildren(h('strong', {}, head), o.note ? o.note + ' ' : '', q.explain || '');
+      feedback.hidden = false; next.hidden = false;
+      next.focus();
+    }
+  }, o.t));
+
+  stage.append(
+    h('p', { class: 'quiz-intro' }, quiz.intro),
+    h('p', { class: 'q-count' }, `Question ${state.i + 1} of ${total}`),
+    h('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': String(total), 'aria-valuenow': String(state.i) },
+      h('span', { style: `width:${(state.i / total) * 100}%` })),
+    h('h2', { class: 'q-text', tabindex: '-1', id: 'quiz-focus' }, q.q),
+    h('div', { class: 'opts' }, buttons),
+    feedback,
+    next
+  );
+  if (focusHeading) $('#quiz-focus').focus();
+}
+
+/* ---------- content lists ---------- */
+function fillList(listId, emptyId, items, build) {
+  const list = $('#' + listId), empty = $('#' + emptyId);
+  list.replaceChildren();
+  empty.hidden = items.length > 0;
+  items.forEach(it => list.append(build(it)));
+}
+function renderContent() {
+  const sorted = arr => [...arr].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  fillList('blog-list', 'blog-empty', sorted(CONTENT.posts), p => h('article', { class: 'card' },
+    h('p', { class: 'meta' }, [fmtDate(p.date), p.category].filter(Boolean).join(' | ')),
+    h('h3', {}, p.title), h('p', {}, p.excerpt || '')));
+  fillList('sanctuary-list', 'sanctuary-empty', sorted(CONTENT.sanctuary), p => h('article', { class: 'card' },
+    h('p', { class: 'meta' }, fmtDate(p.date)), h('h3', {}, p.title), h('p', {}, p.text || '')));
+  fillList('magazine-list', 'magazine-empty', sorted(CONTENT.magazine), p => h('article', { class: 'card' },
+    h('p', { class: 'meta' }, [fmtDate(p.date), p.author && 'By ' + p.author].filter(Boolean).join(' | ')),
+    h('h3', {}, p.title), h('p', {}, p.text || '')));
+
+  const gal = $('#gallery'); gal.replaceChildren();
+  if (CONTENT.gallery.length) {
+    CONTENT.gallery.forEach(g => gal.append(h('figure', { class: 'frame', style: 'margin:0' },
+      h('img', { src: g.src, alt: g.alt || '', loading: 'lazy' }))));
+  } else {
+    for (let i = 0; i < 6; i++) gal.append(h('div', { class: 'frame' }, h('div', {}, icon('i-camera'), 'Photo coming soon')));
+  }
+}
+
+/* ---------- start ---------- */
+$('#year').textContent = new Date().getFullYear();
+renderContent();
+startQuiz('wild');
+renderTabs();
+renderQuiz(false);
+route(true);
+</script>
+</body>
+</html>
