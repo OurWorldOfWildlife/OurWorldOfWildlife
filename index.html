@@ -259,6 +259,66 @@ p{margin:0 0 1rem}
   .nav{flex-wrap:nowrap; overflow-x:auto; width:100%; padding-bottom:.2rem; -webkit-overflow-scrolling:touch}
   .nav a{white-space:nowrap; padding:.35rem .7rem; font-size:.92rem}
 }
+
+/* ---------- featured petition ---------- */
+.promo-bar{display:block; text-align:center; background:linear-gradient(90deg,#0E1F3A,#1B3B63); color:#FFE9A8; font-weight:700; font-size:.95rem; padding:.5rem 1rem; text-decoration:none}
+.promo-bar strong{color:#fff}
+.promo-bar:hover{background:linear-gradient(90deg,#132a4d,#224a7a)}
+.nav a.nav-petition{background:var(--sun); color:#2b1d03}
+.nav a.nav-petition:hover{background:#F0BE5C}
+.nav a.nav-petition[aria-current="page"]{background:var(--fern); color:#fff}
+.pill{display:inline-block; background:var(--sun); color:#2b1d03; font-weight:700; font-size:.85rem; padding:.15rem .8rem; border-radius:999px; margin-bottom:.7rem}
+.petition-wrap{max-width:1120px; margin:-2.6rem auto 0; padding:0 1.25rem; position:relative; z-index:3}
+.petition-card{
+  display:grid; grid-template-columns:1.15fr .85fr; gap:1.6rem; align-items:center; color:#EAF2F8;
+  background:radial-gradient(60rem 30rem at 90% 0%, #24487A 0%, transparent 60%), linear-gradient(135deg,#0E1F3A,#16305A);
+  border-radius:var(--blob-a); padding:clamp(1.4rem,3vw,2.4rem); border:2px solid rgba(255,233,168,.28);
+  box-shadow:0 18px 40px -18px rgba(14,31,58,.65);
+}
+.petition-card h2{color:#fff; font-size:clamp(2rem,4.6vw,3.1rem)}
+.petition-card p{color:#DCE9F3}
+.petition-card a:not(.btn){color:#FFE9A8}
+.stat-row{list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; padding:0; margin:1.2rem 0 1.4rem}
+.stat-row li{background:rgba(255,255,255,.08); border:1px solid rgba(255,233,168,.25); border-radius:16px; padding:.7rem .8rem; line-height:1.25}
+.stat-row b{display:block; font-family:var(--display); font-weight:400; font-size:1.9rem; color:#FFE9A8; line-height:1}
+.stat-row span{font-size:.85rem; color:#DCE9F3}
+.cta-row{display:flex; flex-wrap:wrap; gap:.8rem; align-items:center}
+.btn.sun{background:var(--sun); border-color:var(--sun); color:#2b1d03}
+.btn.sun:hover{background:#F0BE5C}
+.btn.ghost{background:transparent; color:#fff; border-color:rgba(255,255,255,.75)}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.btn.big{font-size:1.15rem; padding:1rem 1.8rem}
+.drone-art{width:100%; height:auto; display:block; border-radius:26px}
+@keyframes tw{0%,100%{opacity:.4}50%{opacity:1}}
+.dr{animation:tw 3s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.dr{animation:none}}
+.share-status{min-height:1.5rem; margin:.6rem 0 0; color:var(--ink-soft); font-size:.95rem}
+.story-card{margin:1.4rem 0 3rem}
+.story-card .drone-art{order:-1}
+.fact-grid{display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); margin:1rem 0 3rem}
+.fact .num{font-family:var(--display); font-size:2.8rem; line-height:1; color:var(--river); margin:0 0 .3rem}
+.fact .icon{margin-bottom:.3rem}
+.why-grid{display:grid; gap:1.1rem; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); margin:1rem 0 2rem}
+.callout{background:linear-gradient(120deg,#DCEBD8,#D3E7EA); border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-b); padding:1.3rem 1.6rem; margin:0 0 3rem; font-size:1.1rem}
+.callout p{margin:0}
+.steps{display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin:1rem 0 3rem}
+.step-num{display:inline-grid; place-items:center; width:2.4rem; height:2.4rem; border-radius:50%; background:var(--fern); color:#fff; font-weight:700; margin-bottom:.5rem}
+.tips{margin:.4rem 0 0; padding-left:1.2rem}
+.tips li{margin:.25rem 0}
+.sources{font-size:.95rem; color:var(--ink-soft)}
+.sources li{margin:.3rem 0}
+.tile-card{display:block; text-decoration:none; color:inherit}
+.tile-card:hover h3{text-decoration:underline}
+.tile-card.featured{border-color:var(--sun); background:#FFF8E6}
+@media (max-width:860px){
+  .petition-card{grid-template-columns:1fr}
+  .petition-card .drone-art{max-width:420px; margin:0 auto}
+  .story-card .drone-art{order:-1}
+}
+@media (max-width:560px){
+  .stat-row{grid-template-columns:1fr}
+  .petition-wrap{margin-top:-1.4rem}
+}
 </style>
 </head>
 
@@ -280,6 +340,8 @@ p{margin:0 0 1rem}
   <symbol id="i-sun" viewBox="0 0 48 48"><circle cx="24" cy="24" r="7"/><path d="M24 6V11M24 37V42M6 24H11M37 24H42M11 11L15 15M33 33L37 37M37 11L33 15M15 33L11 37"/></symbol>
 </svg>
 
+<a class="promo-bar" href="#/petition"><strong>Sign River's petition:</strong> a drone show for Aberdeen instead of fireworks &rarr;</a>
+
 <header class="site-header">
   <a class="brand" href="#/home" aria-label="Our World of Wildlife, home">
     <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
@@ -287,6 +349,7 @@ p{margin:0 0 1rem}
   </a>
   <nav class="nav" aria-label="Main">
     <a href="#/home" data-nav="home">Home</a>
+    <a href="#/petition" data-nav="petition" class="nav-petition">Petition</a>
     <a href="#/quiz" data-nav="quiz">Quizzes</a>
     <a href="#/blog" data-nav="blog">Blog</a>
     <a href="#/sanctuary" data-nav="sanctuary">Sanctuary</a>
@@ -482,6 +545,26 @@ p{margin:0 0 1rem}
 </svg>
     </section>
 
+    <section class="petition-wrap" aria-labelledby="pet-title">
+      <div class="petition-card">
+        <div>
+          <span class="pill">River's petition</span>
+          <h2 id="pet-title">Let's light up the sky without hurting the world</h2>
+          <p>I'm asking my town to swap its Fourth of July fireworks for a drone show. It's just as magical, and it's quiet enough for pets and wildlife and safe for everyone.</p>
+          <ul class="stat-row">
+            <li><b>42%</b><span>more fine-particle air pollution after July 4</span></li>
+            <li><b>30-60%</b><span>more lost pets around July 4 to 6</span></li>
+            <li><b>1,000x</b><span>more birds in flight near fireworks</span></li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn sun big" href="https://www.change.org/p/drone-show-for-aberdeen" target="_blank" rel="noopener noreferrer">Sign my petition</a>
+            <a class="btn ghost" href="#/petition">Read why</a>
+          </div>
+        </div>
+        <svg class="drone-art" role="img" aria-label="A glowing heart made of drone lights in a night sky"></svg>
+      </div>
+    </section>
+
     <section class="mission" id="mission" aria-labelledby="mission-title">
       <h2 id="mission-title">Our mission</h2>
       <p class="mission-statement">We stand up for climate justice, say no to single-use plastic and give old things a second life through upcycling and recycling.</p>
@@ -520,7 +603,7 @@ p{margin:0 0 1rem}
         <a class="card tile" href="#/blog"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><h3>River's blog</h3><p>Stories and ideas from River.</p></div></a>
         <a class="card tile" href="#/sanctuary"><svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg><div><h3>Sanctuary updates</h3><p>News and photos from the animals.</p></div></a>
         <a class="card tile" href="#/magazine"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><div><h3>Literary magazine</h3><p>Poems, stories and past writings.</p></div></a>
-        <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>Petitions, donations and yoga class.</p></div></a>
+        <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>River's petition and more.</p></div></a>
         <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Podcast, projects and people I admire.</p></div></a>
       </div>
     </section>
@@ -571,17 +654,104 @@ p{margin:0 0 1rem}
     <div class="stack" id="magazine-list"></div>
   </section>
 
+  <!-- ============ PETITION ============ -->
+  <section class="view" data-view="petition" hidden aria-labelledby="petition-title">
+    <span class="pill">River's petition</span><br>
+    <h1 class="view-title" id="petition-title" tabindex="-1">Drone Show for Aberdeen</h1>
+    <p class="view-intro">Let's keep the wonder of the Fourth of July and lose the harm. I'm asking my town to switch from fireworks to a drone show.</p>
+    <div class="cta-row">
+      <a class="btn sun big" href="https://www.change.org/p/drone-show-for-aberdeen" target="_blank" rel="noopener noreferrer">Sign the petition on Change.org</a>
+      <button class="btn alt" id="share-petition" type="button">Share it</button>
+    </div>
+    <p class="share-status" id="share-status" role="status"></p>
+
+    <div class="petition-card story-card">
+      <div>
+        <h2>Why I started this petition</h2>
+        <p>I'm River, and I care a lot about wildlife. For many years I loved the fireworks on the Fourth of July. Then this year I learned how much they cost the animals, the air and the people around us.</p>
+        <p>Pets run away from home. Birds panic and leave their nests. The loud bangs are hard on kids who are sensitive to sound and on veterans with PTSD. I couldn't stop thinking about it.</p>
+        <p>So I asked my town to try a drone show. Hundreds of little lights can draw hearts, animals and stories in the sky with no bangs and no smoke. It's just as magical, and it's safe for everyone and everything.</p>
+        <p>This is the biggest problem I've tried to solve so far, and I can't do it alone. Will you help me?</p>
+      </div>
+      <svg class="drone-art" role="img" aria-label="A glowing heart made of drone lights in a night sky"></svg>
+    </div>
+
+    <h2>The facts I found</h2>
+    <div class="fact-grid">
+      <article class="card fact">
+        <p class="num">42%</p>
+        <h3>Dirtier air</h3>
+        <p>At more than 300 U.S. air monitors, fine-particle pollution in the 24 hours after 8 p.m. on July 4 averaged 42% higher than on nearby days. Next to one fireworks display it jumped 370%. Those tiny particles can get deep into our lungs.</p>
+      </article>
+      <article class="card fact">
+        <p class="num">30-60%</p>
+        <h3>More lost pets</h3>
+        <p>Animal control officials see 30% to 60% more lost pets between July 4 and July 6. July 5 is one of the busiest days of the year for animal shelters.</p>
+      </article>
+      <article class="card fact">
+        <p class="num">1,000x</p>
+        <h3>Panicked birds</h3>
+        <p>In a radar study in the Netherlands, about 1,000 times as many birds were flying near fireworks on New Year's Eve as on other nights. Larger birds stayed in the air for hours.</p>
+      </article>
+      <article class="card fact">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        <h3>Hard on people too</h3>
+        <p>Sudden bangs can be painful and scary for children and adults who are sensitive to sound and for veterans with PTSD. Smoke makes it harder for people with asthma to breathe.</p>
+      </article>
+      <article class="card fact">
+        <svg class="icon" aria-hidden="true"><use href="#i-drop"/></svg>
+        <h3>Fire and litter</h3>
+        <p>Sparks can start roof and brush fires. Fireworks can leave smoke, paper, plastic and metal residue behind, and some of it ends up in soil and water.</p>
+      </article>
+    </div>
+
+    <h2>Why a drone show is better</h2>
+    <div class="why-grid">
+      <article class="card"><h3>Quiet</h3><p>No booms. Pets, wildlife, babies and sound-sensitive people can all enjoy the night sky.</p></article>
+      <article class="card"><h3>Safer</h3><p>No explosives in the sky, so much less risk of fires and injuries. Drone shows are flown with careful planning and safety limits.</p></article>
+      <article class="card"><h3>Cleaner</h3><p>No smoke clouds and no paper or plastic falling into yards and water.</p></article>
+      <article class="card"><h3>Creative</h3><p>Hundreds of lights can make hearts, animals, the town logo or a story that changes every year.</p></article>
+      <article class="card"><h3>For everyone</h3><p>Families can stay together, and pets can stay safe and calm at home.</p></article>
+    </div>
+
+    <div class="callout"><p><strong>It's OK to love fireworks.</strong> I did too, for a long time. We didn't have this information before, and now that we do, we can keep the wonder and lose the harm. As Jane Goodall says, &ldquo;What you do makes a difference.&rdquo;</p></div>
+
+    <h2>How you can help</h2>
+    <div class="steps">
+      <article class="card"><span class="step-num">1</span><h3>Sign the petition</h3><p>It takes about a minute on Change.org.</p><p><a class="btn" href="https://www.change.org/p/drone-show-for-aberdeen" target="_blank" rel="noopener noreferrer">Sign now</a></p></article>
+      <article class="card"><span class="step-num">2</span><h3>Share it</h3><p>Send the link to friends, neighbors and family in Aberdeen. Every share helps.</p><p><button class="btn alt" id="share-petition-2" type="button">Share the link</button></p></article>
+      <article class="card"><span class="step-num">3</span><h3>Speak up</h3><p>Tell the Aberdeen Township Council you would love to see a drone show. Kind, polite notes and showing up to a meeting both help.</p></article>
+    </div>
+
+    <div class="card">
+      <h3>Until then, keep pets safe on July 4</h3>
+      <ul class="tips">
+        <li>Keep pets inside in a quiet room with music or the TV on.</li>
+        <li>Make sure they wear an ID tag or have a microchip.</li>
+        <li>Leave them at home when you go to a show.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-gap">Sources</h3>
+    <ul class="sources">
+      <li><a href="https://www.arl.noaa.gov/documents/JournalPDFs/Seidel&amp;BirnbaumAE2015.pdf" target="_blank" rel="noopener noreferrer">NOAA study on July 4 air pollution (Seidel and Birnbaum, 2015)</a></li>
+      <li><a href="https://www.aaha.org/newstat/publications/fireworks-arent-fun-for-everyone/" target="_blank" rel="noopener noreferrer">American Animal Hospital Association: Fireworks aren't fun for everyone</a></li>
+      <li><a href="https://www.uva.nl/en/content/news/news/2023/12/millions-of-birds-lose-precious-energy-due-to-fireworks-on-new-years-eve.html" target="_blank" rel="noopener noreferrer">University of Amsterdam: fireworks and birds study</a></li>
+      <li><a href="https://www.change.org/p/drone-show-for-aberdeen" target="_blank" rel="noopener noreferrer">River's petition on Change.org</a></li>
+    </ul>
+  </section>
+
   <!-- ============ TAKE ACTION ============ -->
   <section class="view" data-view="action" hidden aria-labelledby="action-title">
     <h1 class="view-title" id="action-title" tabindex="-1">Take action</h1>
-    <p class="view-intro">Small choices add up. Here are the ways you will be able to help.</p>
+    <p class="view-intro">Small choices add up. Start with River's petition, then look out for more ways to help.</p>
     <div class="grid">
-      <article class="card">
+      <a class="card tile-card featured" href="#/petition">
         <svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg>
-        <span class="soon">Coming soon</span>
-        <h3>Petitions</h3>
-        <p>Add your voice to petitions that protect wildlife and wild places.</p>
-      </article>
+        <span class="pill">Featured petition</span>
+        <h3>Drone Show for Aberdeen</h3>
+        <p>River wants a quieter, safer and cleaner Fourth of July. Read why and add your name.</p>
+      </a>
       <article class="card">
         <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
         <span class="soon">Coming soon</span>
@@ -637,6 +807,7 @@ p{margin:0 0 1rem}
   <div class="foot-inner">
     <p><strong>Our World of Wildlife</strong> is a kid-led project managed by River's family.</p>
     <p>Support climate justice. Reduce single-use. Upcycle and recycle.</p>
+    <p><a href="#/petition">Sign River's petition for a drone show</a></p>
     <p>&copy; <span id="year"></span> Our World of Wildlife</p>
   </div>
 </footer>
@@ -824,8 +995,8 @@ const fmtDate = d => {
 };
 
 /* ---------- router ---------- */
-const ROUTES = { home:'home', mission:'home', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
-const TITLES = { home:'Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
+const ROUTES = { home:'home', mission:'home', petition:'petition', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
+const TITLES = { home:'Our World of Wildlife', petition:'Drone Show for Aberdeen | Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function route(initial) {
@@ -955,9 +1126,60 @@ function renderContent() {
   }
 }
 
+/* ---------- drone show art ---------- */
+function rng(seed) { return function() { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function buildDroneArt() {
+  $$('.drone-art').forEach((svg, n) => {
+    const r = rng(7 + n * 13);
+    svg.setAttribute('viewBox', '0 0 400 320');
+    let o = `<defs><linearGradient id="dsk${n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A1730"/><stop offset="1" stop-color="#27507F"/></linearGradient>
+      <radialGradient id="dmn${n}"><stop offset="0" stop-color="#FFF6D6"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/></radialGradient></defs>
+      <rect width="400" height="320" fill="url(#dsk${n})"/>
+      <circle cx="338" cy="52" r="34" fill="url(#dmn${n})" opacity=".6"/><circle cx="338" cy="52" r="13" fill="#FFF3C9"/>`;
+    const dot = (x, y, rad, col, cls) => `<circle class="dr" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad}" fill="${col}" style="animation-delay:${(-r() * 3).toFixed(2)}s;animation-duration:${(2.4 + r() * 2.2).toFixed(2)}s"/>`;
+    for (let i = 0; i < 46; i++) o += dot(r() * 400, r() * 210, (0.5 + r() * 0.9).toFixed(1), '#FFFFFF');
+    const heart = (scale, count, rad, col, halo) => {
+      let h = '';
+      for (let i = 0; i < count; i++) {
+        const t = i / count * Math.PI * 2;
+        const x = 200 + 7.4 * scale * 16 * Math.pow(Math.sin(t), 3);
+        const y = 140 - 7.4 * scale * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        h += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad * 2.3}" fill="${halo}" opacity=".22"/>` + dot(x, y, rad, col);
+      }
+      return h;
+    };
+    o += heart(1, 64, 3.1, '#FFD966', '#FFD966') + heart(0.66, 40, 2.7, '#9FE3D0', '#9FE3D0') + heart(0.34, 16, 2.4, '#FFB8C6', '#FFB8C6');
+    let g = '<path d="M0 320V296';
+    for (let x = 0; x <= 400; x += 10) g += ` L${x} ${292 + r() * 6}`;
+    g += ' V320Z" fill="#07101F"/>';
+    for (let i = 0; i < 26; i++) {
+      const x = r() * 400, h = 16 + r() * 26;
+      g += `<path d="M${(x - h * 0.28).toFixed(1)} 300L${x.toFixed(1)} ${(300 - h).toFixed(1)}L${(x + h * 0.28).toFixed(1)} 300Z" fill="#07101F"/>`;
+    }
+    svg.innerHTML = o + g;
+  });
+}
+
+/* ---------- petition sharing ---------- */
+const PETITION_URL = 'https://www.change.org/p/drone-show-for-aberdeen';
+async function sharePetition() {
+  const status = $('#share-status');
+  const data = { title: 'Drone Show for Aberdeen', text: "Please sign River's petition for a drone show instead of fireworks.", url: PETITION_URL };
+  try {
+    if (navigator.share) { await navigator.share(data); return; }
+    await navigator.clipboard.writeText(PETITION_URL);
+    status.textContent = 'Link copied! Send it to a friend.';
+  } catch (e) {
+    if (e && e.name === 'AbortError') return;
+    status.textContent = 'Copy this link to share: ' + PETITION_URL;
+  }
+}
+['share-petition', 'share-petition-2'].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener('click', sharePetition); });
+
 /* ---------- start ---------- */
 $('#year').textContent = new Date().getFullYear();
 renderContent();
+buildDroneArt();
 startQuiz('wild');
 renderTabs();
 renderQuiz(false);
