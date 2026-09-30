@@ -325,6 +325,18 @@ p{margin:0 0 1rem}
 .post-body{white-space:pre-wrap}
 .gallery figure.frame{position:relative; overflow:hidden; padding:0; margin:0}
 .frame figcaption{position:absolute; left:0; right:0; bottom:0; padding:1.4rem .9rem .6rem; background:linear-gradient(transparent, rgba(20,40,32,.78)); color:#fff; font-size:.92rem; text-align:left}
+
+/* ---------- podcast ---------- */
+.player-wrap{display:grid; gap:1.4rem; max-width:860px}
+.player{position:relative; aspect-ratio:16/9; border-radius:26px; overflow:hidden; background:linear-gradient(135deg,#0E1F3A,#16305A); border:2px solid rgba(44,90,75,.2); box-shadow:0 16px 36px -20px rgba(14,31,58,.6)}
+.player iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.now-playing h2{margin:0 0 .3rem}
+.episode{display:flex; gap:1rem; align-items:center; width:100%; text-align:left; font:inherit; color:inherit; cursor:pointer; background:rgba(255,255,255,.74); border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-a); padding:1rem 1.3rem}
+.episode:hover{border-color:var(--fern)}
+.episode[aria-current="true"]{border-color:var(--sun); background:#FFF8E6}
+.episode .icon{color:var(--fern); width:2rem; height:2rem}
+.episode strong{display:block}
+.hint{font-size:.92rem; color:var(--ink-soft); margin-top:1.4rem}
 </style>
 </head>
 
@@ -356,6 +368,7 @@ p{margin:0 0 1rem}
   <nav class="nav" aria-label="Main">
     <a href="#/home" data-nav="home">Home</a>
     <a href="#/petition" data-nav="petition" class="nav-petition">Petition</a>
+    <a href="#/podcast" data-nav="podcast">Podcast</a>
     <a href="#/quiz" data-nav="quiz">Quizzes</a>
     <a href="#/blog" data-nav="blog">Blog</a>
     <a href="#/sanctuary" data-nav="sanctuary">Sanctuary</a>
@@ -606,11 +619,12 @@ p{margin:0 0 1rem}
     <section class="band section-gap" aria-labelledby="explore-title">
       <h2 id="explore-title">Explore the site</h2>
       <div class="grid">
+        <a class="card tile" href="#/podcast"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Podcast</h3><p>Press play and listen to River.</p></div></a>
         <a class="card tile" href="#/blog"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><h3>River's blog</h3><p>Stories and ideas from River.</p></div></a>
         <a class="card tile" href="#/sanctuary"><svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg><div><h3>Sanctuary updates</h3><p>News and photos from the animals.</p></div></a>
         <a class="card tile" href="#/magazine"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><div><h3>Literary magazine</h3><p>Poems, stories and past writings.</p></div></a>
         <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>River's petition and more.</p></div></a>
-        <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Podcast, projects and people I admire.</p></div></a>
+        <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Projects and people I admire.</p></div></a>
       </div>
     </section>
   </div>
@@ -658,6 +672,26 @@ p{margin:0 0 1rem}
       <div><span class="soon">Coming soon</span><h3>The first issue is being written</h3><p>Past writings will be collected here too.</p></div>
     </div>
     <div class="stack" id="magazine-list"></div>
+  </section>
+
+  <!-- ============ PODCAST ============ -->
+  <section class="view" data-view="podcast" hidden aria-labelledby="podcast-title">
+    <h1 class="view-title" id="podcast-title" tabindex="-1">Podcast</h1>
+    <p class="view-intro">Press play and listen right here on the page.</p>
+    <div class="player-wrap">
+      <div class="player" id="player"></div>
+      <div class="now-playing">
+        <p class="meta" id="np-meta"></p>
+        <h2 id="np-title"></h2>
+        <p id="np-desc"></p>
+        <p><a id="np-yt" class="btn alt small" href="#" target="_blank" rel="noopener noreferrer">Watch on YouTube</a></p>
+      </div>
+    </div>
+    <div id="episodes-wrap" hidden>
+      <h2 class="section-gap">All episodes</h2>
+      <div class="stack" id="episodes"></div>
+    </div>
+    <p class="hint">Episodes play through YouTube's privacy-enhanced player.</p>
   </section>
 
   <!-- ============ PETITION ============ -->
@@ -780,9 +814,9 @@ p{margin:0 0 1rem}
     <div class="grid">
       <article class="card">
         <svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>
-        <span class="soon">Coming soon</span>
-        <h3>Hello Earthling podcast</h3>
-        <p>River's very own podcast about nature and taking care of our world.</p>
+        <h3>Hello Earthling with Bonnie Wright</h3>
+        <p>A kids' podcast where children from around the world share how they explore nature with curiosity and imagination.</p>
+        <p><a href="https://helloearthling.world" target="_blank" rel="noopener noreferrer">Visit Hello Earthling (opens in a new tab)</a></p>
       </article>
       <article class="card">
         <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
@@ -828,6 +862,11 @@ p{margin:0 0 1rem}
    can be swapped for a database and an admin login.
    ===================================================== */
 const CONTENT = {
+  // Podcast episodes (newest first). id is the part after v= in the YouTube link.
+  // { id: 'mlwkM8bUUB8', title: 'Episode 1', date: 'YYYY-MM-DD', description: 'What the episode is about' }
+  podcast: [
+    { id: 'mlwkM8bUUB8', title: 'Episode 1', date: '', description: '' }
+  ],
   // { title, date: 'YYYY-MM-DD', category, excerpt }
   posts: [],
   // { title, date: 'YYYY-MM-DD', text }
@@ -1002,8 +1041,8 @@ const fmtDate = d => {
 };
 
 /* ---------- router ---------- */
-const ROUTES = { home:'home', mission:'home', petition:'petition', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
-const TITLES = { home:'Our World of Wildlife', petition:'Drone Show for Aberdeen | Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
+const ROUTES = { home:'home', mission:'home', petition:'petition', podcast:'podcast', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
+const TITLES = { home:'Our World of Wildlife', podcast:'Podcast | Our World of Wildlife', petition:'Drone Show for Aberdeen | Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function route(initial) {
@@ -1012,6 +1051,7 @@ function route(initial) {
   $$('[data-view]').forEach(v => v.hidden = v.dataset.view !== view);
   $$('[data-nav]').forEach(a => a.dataset.nav === view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   document.title = TITLES[view];
+  if (view === 'podcast') initPodcast();
   if (key === 'mission') {
     $('#mission').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   } else {
@@ -1156,6 +1196,35 @@ async function loadRemoteContent() {
     CONTENT.gallery = of('gallery').map(r => ({ src: img(r), alt: r.image_alt, caption: r.title, date: day(r) }));
     return true;
   } catch (e) { return false; }
+}
+
+/* ---------- podcast player ---------- */
+let podcastReady = false, currentEp = null;
+function playEpisode(ep) {
+  currentEp = ep;
+  $('#player').replaceChildren(h('iframe', {
+    src: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ep.id)}?rel=0&modestbranding=1&playsinline=1`,
+    title: ep.title || 'Podcast episode',
+    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+    referrerpolicy: 'strict-origin-when-cross-origin', allowfullscreen: '', loading: 'lazy'
+  }));
+  $('#np-title').textContent = ep.title || 'Episode';
+  $('#np-meta').textContent = ep.date ? fmtDate(ep.date) : 'Now playing';
+  $('#np-desc').textContent = ep.description || '';
+  $('#np-desc').hidden = !ep.description;
+  $('#np-yt').href = `https://www.youtube.com/watch?v=${encodeURIComponent(ep.id)}`;
+  $$('#episodes .episode').forEach(b => b.setAttribute('aria-current', String(b.dataset.id === ep.id)));
+}
+function initPodcast() {
+  if (podcastReady) return;
+  const eps = CONTENT.podcast || [];
+  if (!eps.length) { $('#player').append(h('p', { style: 'color:#fff;padding:2rem' }, 'The first episode is coming soon.')); podcastReady = true; return; }
+  const list = $('#episodes'); list.replaceChildren();
+  eps.forEach(ep => list.append(h('button', { class: 'episode', type: 'button', 'data-id': ep.id, onclick: () => { playEpisode(ep); $('#player').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); } },
+    icon('i-mic'), h('span', {}, h('strong', {}, ep.title || 'Episode'), ep.date ? fmtDate(ep.date) : ''))));
+  $('#episodes-wrap').hidden = eps.length < 2;
+  playEpisode(eps[0]);
+  podcastReady = true;
 }
 
 /* ---------- drone show art ---------- */
