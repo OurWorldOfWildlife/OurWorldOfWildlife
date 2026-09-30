@@ -338,6 +338,13 @@ p{margin:0 0 1rem}
 .episode .icon{color:var(--fern); width:2rem; height:2rem}
 .episode strong{display:block}
 .hint{font-size:.92rem; color:var(--ink-soft); margin-top:1.4rem}
+
+/* ---------- family yoga ---------- */
+.yoga-band{display:flex; flex-wrap:wrap; gap:1.2rem 1.6rem; align-items:center; background:linear-gradient(120deg,#FFF3D4,#E3F0DF 55%,#D6E8EC); border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-b); padding:1.6rem 2rem}
+.yoga-band .icon{width:3.2rem; height:3.2rem; color:#C98A1B; flex:none}
+.yoga-band > div{flex:1 1 20rem}
+.yoga-band h2{margin:0 0 .2rem}
+.yoga-band p{margin:0}
 </style>
 </head>
 
@@ -617,6 +624,17 @@ p{margin:0 0 1rem}
       </div>
     </section>
 
+    <section class="band section-gap" aria-labelledby="yoga-title">
+      <div class="yoga-band">
+        <svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg>
+        <div>
+          <h2 id="yoga-title">Stretch, breathe and play</h2>
+          <p>Once a month, I do family yoga at my mom's studio. It is a calm, fun way to connect with the people you love and with nature. Come join us!</p>
+        </div>
+        <a class="btn" href="https://momence.com/u/elevateyoga" target="_blank" rel="noopener noreferrer">Sign up for family yoga</a>
+      </div>
+    </section>
+
     <section class="band section-gap" aria-labelledby="explore-title">
       <h2 id="explore-title">Explore the site</h2>
       <div class="grid">
@@ -624,7 +642,7 @@ p{margin:0 0 1rem}
         <a class="card tile" href="#/blog"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><h3>River's blog</h3><p>Stories and ideas from River.</p></div></a>
         <a class="card tile" href="#/sanctuary"><svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg><div><h3>Sanctuary updates</h3><p>News and photos from the animals.</p></div></a>
         <a class="card tile" href="#/magazine"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><div><h3>Literary magazine</h3><p>Poems, stories and past writings.</p></div></a>
-        <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>River's petition and more.</p></div></a>
+        <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>River's petition, family yoga and more.</p></div></a>
         <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Projects and people I admire.</p></div></a>
       </div>
     </section>
@@ -801,9 +819,10 @@ p{margin:0 0 1rem}
       </article>
       <article class="card">
         <svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg>
-        <span class="soon">Coming soon</span>
-        <h3>Yoga class</h3>
-        <p>Stretch, breathe and connect with nature. Sign-ups will open here.</p>
+        <span class="pill">Once a month</span>
+        <h3>Family yoga with River</h3>
+        <p>Stretch, breathe and have fun together. River does family yoga once a month at her mom's studio, and you can sign up for a class online.</p>
+        <p><a class="btn small" href="https://momence.com/u/elevateyoga" target="_blank" rel="noopener noreferrer">See classes and sign up</a></p>
       </article>
     </div>
   </section>
