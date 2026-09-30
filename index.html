@@ -319,6 +319,12 @@ p{margin:0 0 1rem}
   .stat-row{grid-template-columns:1fr}
   .petition-wrap{margin-top:-1.4rem}
 }
+
+/* ---------- posts from the admin ---------- */
+.post-img{display:block; width:100%; max-height:380px; object-fit:cover; border-radius:18px; margin:.6rem 0 .8rem}
+.post-body{white-space:pre-wrap}
+.gallery figure.frame{position:relative; overflow:hidden; padding:0; margin:0}
+.frame figcaption{position:absolute; left:0; right:0; bottom:0; padding:1.4rem .9rem .6rem; background:linear-gradient(transparent, rgba(20,40,32,.78)); color:#fff; font-size:.92rem; text-align:left}
 </style>
 </head>
 
@@ -808,12 +814,13 @@ p{margin:0 0 1rem}
     <p><strong>Our World of Wildlife</strong> is a kid-led project managed by River's family.</p>
     <p>Support climate justice. Reduce single-use. Upcycle and recycle.</p>
     <p><a href="#/petition">Sign River's petition for a drone show</a></p>
-    <p>&copy; <span id="year"></span> Our World of Wildlife</p>
+    <p>&copy; <span id="year"></span> Our World of Wildlife &middot; <a href="admin.html">Team sign in</a></p>
   </div>
 </footer>
 
 <noscript><p style="text-align:center;padding:1rem">This site needs JavaScript to show its pages. Please turn it on and reload.</p></noscript>
 
+<script src="config.js"></script>
 <script>
 /* =====================================================
    SITE CONTENT
@@ -1106,24 +1113,49 @@ function fillList(listId, emptyId, items, build) {
   empty.hidden = items.length > 0;
   items.forEach(it => list.append(build(it)));
 }
+const postBody = t => h('div', { class: 'post-body' }, t || '');
+const postImg = p => p.image ? h('img', { class: 'post-img', src: p.image, alt: p.alt || '', loading: 'lazy' }) : '';
 function renderContent() {
   const sorted = arr => [...arr].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   fillList('blog-list', 'blog-empty', sorted(CONTENT.posts), p => h('article', { class: 'card' },
     h('p', { class: 'meta' }, [fmtDate(p.date), p.category].filter(Boolean).join(' | ')),
-    h('h3', {}, p.title), h('p', {}, p.excerpt || '')));
+    h('h3', {}, p.title), postImg(p), postBody(p.text || p.excerpt)));
   fillList('sanctuary-list', 'sanctuary-empty', sorted(CONTENT.sanctuary), p => h('article', { class: 'card' },
-    h('p', { class: 'meta' }, fmtDate(p.date)), h('h3', {}, p.title), h('p', {}, p.text || '')));
+    h('p', { class: 'meta' }, fmtDate(p.date)), h('h3', {}, p.title), postImg(p), postBody(p.text)));
   fillList('magazine-list', 'magazine-empty', sorted(CONTENT.magazine), p => h('article', { class: 'card' },
     h('p', { class: 'meta' }, [fmtDate(p.date), p.author && 'By ' + p.author].filter(Boolean).join(' | ')),
-    h('h3', {}, p.title), h('p', {}, p.text || '')));
+    h('h3', {}, p.title), postImg(p), postBody(p.text)));
 
   const gal = $('#gallery'); gal.replaceChildren();
   if (CONTENT.gallery.length) {
-    CONTENT.gallery.forEach(g => gal.append(h('figure', { class: 'frame', style: 'margin:0' },
-      h('img', { src: g.src, alt: g.alt || '', loading: 'lazy' }))));
+    sorted(CONTENT.gallery).forEach(g => gal.append(h('figure', { class: 'frame' },
+      h('img', { src: g.src, alt: g.alt || g.caption || '', loading: 'lazy' }),
+      g.caption ? h('figcaption', {}, g.caption) : '')));
   } else {
     for (let i = 0; i < 6; i++) gal.append(h('div', { class: 'frame' }, h('div', {}, icon('i-camera'), 'Photo coming soon')));
   }
+}
+
+/* ---------- load posts published from the admin page ---------- */
+async function loadRemoteContent() {
+  const cfg = window.SITE_CONFIG || {};
+  if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return false;
+  const base = cfg.SUPABASE_URL.replace(/\/$/, '');
+  try {
+    const res = await fetch(`${base}/rest/v1/posts?select=id,type,title,category,author,body,image_path,image_alt,created_at&published=eq.true&order=created_at.desc&limit=300`,
+      { headers: { apikey: cfg.SUPABASE_ANON_KEY } });
+    if (!res.ok) return false;
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return false;
+    const img = r => r.image_path ? `${base}/storage/v1/object/public/site-images/${encodeURI(r.image_path)}` : '';
+    const day = r => String(r.created_at || '').slice(0, 10);
+    const of = t => rows.filter(r => r.type === t);
+    CONTENT.posts = of('blog').map(r => ({ title: r.title, date: day(r), category: r.category, text: r.body, image: img(r), alt: r.image_alt }));
+    CONTENT.sanctuary = of('sanctuary').map(r => ({ title: r.title, date: day(r), text: r.body, image: img(r), alt: r.image_alt }));
+    CONTENT.magazine = of('magazine').map(r => ({ title: r.title, author: r.author, date: day(r), text: r.body, image: img(r), alt: r.image_alt }));
+    CONTENT.gallery = of('gallery').map(r => ({ src: img(r), alt: r.image_alt, caption: r.title, date: day(r) }));
+    return true;
+  } catch (e) { return false; }
 }
 
 /* ---------- drone show art ---------- */
@@ -1179,6 +1211,7 @@ async function sharePetition() {
 /* ---------- start ---------- */
 $('#year').textContent = new Date().getFullYear();
 renderContent();
+loadRemoteContent().then(ok => { if (ok) renderContent(); });
 buildDroneArt();
 startQuiz('wild');
 renderTabs();

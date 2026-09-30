@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Team sign in | Our World of Wildlife</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mist:#EEF5F0; --wash:#D6E8E4; --fern:#2C5A4B; --moss:#6E9C6B; --river:#4C8CA6; --sun:#E6AE4A; --petal:#E7A7A0;
+  --ink:#1E3532; --ink-soft:#3F5C57; --paper:#FBFDFB;
+  --display:'Caveat Brush','Segoe Print','Comic Sans MS',cursive;
+  --body:'Quicksand','Trebuchet MS',system-ui,sans-serif;
+  --blob-a:34px 14px 30px 16px / 16px 30px 14px 34px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{
+  margin:0; font-family:var(--body); font-weight:600; font-size:1.05rem; line-height:1.6; color:var(--ink);
+  background:radial-gradient(60rem 30rem at 8% -5%, #DCEBE6 0%, transparent 60%), radial-gradient(50rem 30rem at 100% 25%, #E9F0E0 0%, transparent 60%), var(--mist);
+  min-height:100vh;
+}
+a{color:var(--fern)}
+:focus-visible{outline:3px solid var(--river); outline-offset:3px; border-radius:6px}
+.bar{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding:.7rem clamp(1rem,3vw,2rem); background:rgba(238,245,240,.92); border-bottom:2px solid rgba(44,90,75,.12)}
+.brand{display:flex; align-items:center; gap:.5rem; text-decoration:none; color:var(--fern); font-family:var(--display); font-size:1.7rem; line-height:1}
+.brand svg{width:2rem; height:2rem; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round}
+main{max-width:860px; margin:0 auto; padding:2rem 1.25rem 4rem}
+h1{font-family:var(--display); font-weight:400; font-size:clamp(2.2rem,6vw,3.2rem); line-height:1.05; color:var(--fern); margin:0 0 .4rem}
+h2{font-family:var(--display); font-weight:400; font-size:clamp(1.7rem,4vw,2.2rem); color:var(--fern); margin:2.4rem 0 .8rem}
+h3{margin:0 0 .3rem; font-size:1.15rem}
+p{margin:0 0 1rem}
+.card{background:rgba(255,255,255,.8); border:2px solid rgba(44,90,75,.14); border-radius:var(--blob-a); padding:1.4rem 1.5rem}
+label{display:block; font-weight:700; margin:0 0 .25rem}
+.hint{font-size:.92rem; color:var(--ink-soft); margin:.2rem 0 0; font-weight:600}
+input[type=text], input[type=email], input[type=password], select, textarea{
+  width:100%; font:inherit; color:var(--ink); background:var(--paper); border:2px solid rgba(44,90,75,.28); border-radius:14px; padding:.65rem .85rem;
+}
+textarea{min-height:11rem; resize:vertical}
+.field{margin-bottom:1.1rem}
+.btn{display:inline-block; font-family:var(--body); font-weight:700; font-size:1.02rem; padding:.75rem 1.3rem; border-radius:999px; border:2px solid var(--fern); background:var(--fern); color:#fff; cursor:pointer}
+.btn:hover{background:#224a3d}
+.btn.alt{background:transparent; color:var(--fern)}
+.btn.alt:hover{background:rgba(44,90,75,.08)}
+.btn.sun{background:var(--sun); border-color:var(--sun); color:#2b1d03}
+.btn.danger{background:transparent; border-color:#B4483E; color:#B4483E}
+.btn.small{padding:.4rem .9rem; font-size:.92rem}
+.btn:disabled{opacity:.55; cursor:default}
+.row{display:flex; flex-wrap:wrap; gap:.7rem; align-items:center}
+.msg{min-height:1.6rem; margin:1rem 0 0; font-weight:700}
+.msg.ok{color:#2F6B3A}
+.msg.err{color:#A63B32}
+.preview{max-width:320px; border-radius:16px; display:block; margin:.6rem 0 0}
+.posts{display:grid; gap:1rem}
+.post{display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:start}
+.post img{width:88px; height:88px; object-fit:cover; border-radius:14px}
+.badge{display:inline-block; font-size:.8rem; font-weight:700; padding:.05rem .65rem; border-radius:999px; margin-right:.4rem}
+.badge.draft{background:#FBEBC6; color:#5c4308}
+.badge.live{background:#D7EBCF; color:#1f4a22}
+.badge.type{background:var(--wash); color:var(--fern)}
+.meta{font-size:.9rem; color:var(--ink-soft); margin:0 0 .3rem}
+.note{background:linear-gradient(120deg,#DCEBD8,#D3E7EA); border-radius:18px; padding:.9rem 1.2rem; margin:0 0 1.4rem}
+.login{max-width:440px; margin:2rem auto}
+</style>
+</head>
+
+<body>
+<header class="bar">
+  <a class="brand" href="index.html">
+    <svg aria-hidden="true" viewBox="0 0 48 48"><path d="M9 39C9 21 21 9 40 8C40 27 29 39 11 39Z"/><path d="M9 39L28 19"/></svg>
+    <span>Our World of Wildlife</span>
+  </a>
+  <button class="btn alt small" id="signout" type="button" hidden>Sign out</button>
+</header>
+
+<main>
+
+  <!-- setup needed -->
+  <section id="view-config" hidden>
+    <h1>Almost ready</h1>
+    <div class="card"><p>This page needs the site's database details. Open <strong>config.js</strong>, fill in the Supabase URL and key, and upload it again. The steps are in <strong>SETUP.md</strong>.</p></div>
+  </section>
+
+  <!-- sign in -->
+  <section id="view-login" hidden>
+    <div class="login card">
+      <h1>Team sign in</h1>
+      <p>For River and the grown-ups who help with the site.</p>
+      <form id="login-form" novalidate>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="username" required></div>
+        <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"></div>
+        <div class="row">
+          <button class="btn" type="submit" id="btn-login">Sign in</button>
+          <button class="btn alt" type="button" id="btn-link">Email me a sign-in link</button>
+        </div>
+        <p class="hint">No password handy? Type your email and choose the sign-in link option.</p>
+        <p class="msg" id="login-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- not allowed -->
+  <section id="view-denied" hidden>
+    <div class="login card">
+      <h1>Not on the team yet</h1>
+      <p>You are signed in, but this account has not been added to the site team. Ask a grown-up to add it, then try again.</p>
+    </div>
+  </section>
+
+  <!-- the app -->
+  <section id="view-app" hidden>
+    <h1 id="greeting">Welcome back!</h1>
+    <p class="note" id="role-note"></p>
+
+    <form id="post-form" class="card" novalidate>
+      <h2 id="form-title" style="margin-top:0">Write something new</h2>
+
+      <div class="field">
+        <label for="f-type">What are you adding?</label>
+        <select id="f-type">
+          <option value="blog">A blog post</option>
+          <option value="sanctuary">A sanctuary update</option>
+          <option value="magazine">A piece for the literary magazine</option>
+          <option value="gallery">A photo for the gallery</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="f-title" id="l-title">Title</label>
+        <input id="f-title" type="text" maxlength="140" required>
+      </div>
+
+      <div class="field" id="g-category">
+        <label for="f-category">Topic (optional)</label>
+        <input id="f-category" type="text" maxlength="60" placeholder="Wildlife, Recycling, Upcycling...">
+      </div>
+
+      <div class="field" id="g-author" hidden>
+        <label for="f-author">Written by</label>
+        <input id="f-author" type="text" maxlength="60" value="River">
+      </div>
+
+      <div class="field" id="g-body">
+        <label for="f-body">Your writing</label>
+        <textarea id="f-body" maxlength="20000"></textarea>
+        <p class="hint">Press Enter twice to start a new paragraph.</p>
+      </div>
+
+      <div class="field">
+        <label for="f-image" id="l-image">Add a photo (optional)</label>
+        <input id="f-image" type="file" accept="image/*">
+        <p class="hint">Photos are shrunk to a web size and hidden location data is removed before they are uploaded.</p>
+        <img class="preview" id="preview" alt="" hidden>
+      </div>
+
+      <div class="field" id="g-alt" hidden>
+        <label for="f-alt">Describe the photo</label>
+        <input id="f-alt" type="text" maxlength="300" placeholder="A red fox curled up in the grass">
+        <p class="hint">This helps people who use screen readers know what is in the picture.</p>
+      </div>
+
+      <div class="row">
+        <button class="btn" type="submit" data-action="draft" id="btn-draft">Save as draft</button>
+        <button class="btn sun" type="submit" data-action="publish" id="btn-publish" hidden>Publish now</button>
+        <button class="btn alt" type="button" id="btn-cancel" hidden>Cancel editing</button>
+      </div>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
+
+    <h2>Everything so far</h2>
+    <div class="posts" id="posts"></div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const cfg = window.SITE_CONFIG || {};
+const $ = s => document.querySelector(s);
+const BUCKET = 'site-images';
+const TYPE_LABEL = { blog: 'Blog post', sanctuary: 'Sanctuary update', magazine: 'Magazine', gallery: 'Gallery photo' };
+
+let sb = null, me = null, role = null, editing = null, posts = [], newImage = null;
+
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') el.className = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) el.setAttribute(k, v);
+  }
+  kids.flat().forEach(c => { if (c != null && c !== false) el.append(c instanceof Node ? c : document.createTextNode(String(c))); });
+  return el;
+}
+function show(view) {
+  ['config', 'login', 'denied', 'app'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  $('#signout').hidden = (view === 'login' || view === 'config');
+}
+function say(text, kind, target = '#msg') { const m = $(target); m.textContent = text || ''; m.className = 'msg ' + (kind || ''); }
+const isOwner = () => role === 'owner';
+const publicUrl = path => sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+const fmt = d => new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+/* ---------- start up ---------- */
+async function init() {
+  if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY || !window.supabase) { show('config'); return; }
+  sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  sb.auth.onAuthStateChange(event => { if (event === 'SIGNED_OUT') { me = null; role = null; show('login'); } });
+  const { data } = await sb.auth.getSession();
+  if (data && data.session) await enter(data.session.user); else show('login');
+}
+
+async function enter(user) {
+  me = user;
+  const { data, error } = await sb.from('admins').select('role').eq('user_id', user.id).maybeSingle();
+  if (error || !data) { show('denied'); return; }
+  role = data.role;
+  $('#greeting').textContent = isOwner() ? 'Welcome back!' : 'Hi River!';
+  $('#role-note').textContent = isOwner()
+    ? 'You can publish posts right away, and you can review and publish drafts from the list below.'
+    : 'Your writing is saved as a draft. A grown-up will read it and publish it on the site.';
+  syncButtons();
+  applyType();
+  show('app');
+  await loadPosts();
+}
+
+/* ---------- sign in ---------- */
+$('#login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = $('#email').value.trim(), password = $('#password').value;
+  if (!email || !password) { say('Type your email and password, or use the sign-in link.', 'err', '#login-msg'); return; }
+  say('Signing in...', '', '#login-msg');
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) { say('That did not work. Check your email and password and try again.', 'err', '#login-msg'); return; }
+  say('', '', '#login-msg');
+  await enter(data.user);
+});
+$('#btn-link').addEventListener('click', async () => {
+  const email = $('#email').value.trim();
+  if (!email) { say('Type your email first.', 'err', '#login-msg'); return; }
+  const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
+  if (error) say('Could not send the link. Make sure the email is on the team.', 'err', '#login-msg');
+  else say('Check your email for a sign-in link.', 'ok', '#login-msg');
+});
+$('#signout').addEventListener('click', async () => { await sb.auth.signOut(); });
+
+/* ---------- form ---------- */
+function syncButtons() {
+  const liveEdit = isOwner() && editing && editing.published;
+  $('#btn-publish').hidden = !isOwner() || !!liveEdit;
+  $('#btn-draft').textContent = !isOwner() ? 'Save my draft' : (liveEdit ? 'Save changes' : 'Save as draft');
+}
+function applyType() {
+  const t = $('#f-type').value;
+  $('#g-category').hidden = t !== 'blog';
+  $('#g-author').hidden = t !== 'magazine';
+  $('#g-body').hidden = t === 'gallery';
+  $('#l-title').textContent = t === 'gallery' ? 'Caption' : 'Title';
+  $('#l-image').textContent = t === 'gallery' ? 'Choose the photo' : 'Add a photo (optional)';
+  $('#g-alt').hidden = !(t === 'gallery' || newImage || (editing && editing.image_path));
+}
+$('#f-type').addEventListener('change', applyType);
+
+async function prepareImage(file) {
+  let bmp;
+  try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch (e) { bmp = await createImageBitmap(file); }
+  const max = 1600, scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const w = Math.round(bmp.width * scale), hgt = Math.round(bmp.height * scale);
+  const c = document.createElement('canvas'); c.width = w; c.height = hgt;
+  c.getContext('2d').drawImage(bmp, 0, 0, w, hgt);
+  return await new Promise(res => c.toBlob(res, 'image/jpeg', 0.86));
+}
+$('#f-image').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  newImage = null; $('#preview').hidden = true;
+  if (!file) { applyType(); return; }
+  try {
+    say('Getting your photo ready...', '');
+    newImage = await prepareImage(file);
+    $('#preview').src = URL.createObjectURL(newImage); $('#preview').hidden = false;
+    say('', '');
+  } catch (err) {
+    e.target.value = ''; newImage = null;
+    say('That photo could not be opened. Please choose a JPG or PNG picture.', 'err');
+  }
+  applyType();
+});
+
+function resetForm() {
+  editing = null; newImage = null;
+  $('#post-form').reset();
+  $('#f-author').value = 'River';
+  $('#preview').hidden = true; $('#preview').removeAttribute('src');
+  $('#form-title').textContent = 'Write something new';
+  $('#btn-cancel').hidden = true;
+  syncButtons();
+  applyType();
+}
+$('#btn-cancel').addEventListener('click', () => { resetForm(); say('', ''); });
+
+$('#post-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const action = (e.submitter && e.submitter.dataset.action) || 'draft';
+  const type = $('#f-type').value, title = $('#f-title').value.trim();
+  const hasImage = !!newImage || !!(editing && editing.image_path);
+  const alt = $('#f-alt').value.trim();
+  if (!title) { say('Please add a title.', 'err'); return; }
+  if (type === 'gallery' && !hasImage) { say('Please choose a photo.', 'err'); return; }
+  if (hasImage && !alt) { say('Please describe the photo in a few words.', 'err'); return; }
+  if (type !== 'gallery' && !$('#f-body').value.trim() && !hasImage) { say('Please write something first.', 'err'); return; }
+
+  const buttons = $$('#post-form button'); buttons.forEach(b => b.disabled = true);
+  say('Saving...', '');
+  try {
+    let image_path = editing ? editing.image_path : null;
+    let oldPath = null;
+    if (newImage) {
+      const path = `${me.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+      const up = await sb.storage.from(BUCKET).upload(path, newImage, { contentType: 'image/jpeg', cacheControl: '31536000', upsert: false });
+      if (up.error) throw up.error;
+      oldPath = image_path; image_path = path;
+    }
+    const published = isOwner() ? (action === 'publish' ? true : (editing ? editing.published : false)) : false;
+    const payload = {
+      type, title,
+      category: type === 'blog' ? ($('#f-category').value.trim() || null) : null,
+      author: type === 'magazine' ? ($('#f-author').value.trim() || 'River') : null,
+      body: type === 'gallery' ? null : ($('#f-body').value.trim() || null),
+      image_path, image_alt: image_path ? alt : null,
+      published
+    };
+    let res;
+    if (editing) res = await sb.from('posts').update(payload).eq('id', editing.id);
+    else res = await sb.from('posts').insert(payload);
+    if (res.error) throw res.error;
+    if (oldPath) sb.storage.from(BUCKET).remove([oldPath]);
+    const msg = payload.published ? (editing ? 'Saved! The changes are live.' : 'Published! It is live on the site.') : (isOwner() ? 'Saved as a draft.' : 'Saved! A grown-up will look at it soon.');
+    resetForm(); say(msg, 'ok');
+    await loadPosts();
+  } catch (err) {
+    say('Something went wrong and it was not saved. Please try again or ask a grown-up.', 'err');
+    console.error(err);
+  } finally {
+    buttons.forEach(b => b.disabled = false);
+  }
+});
+function $$(s) { return [...document.querySelectorAll(s)]; }
+
+/* ---------- list ---------- */
+async function loadPosts() {
+  const { data, error } = await sb.from('posts').select('*').order('created_at', { ascending: false });
+  const list = $('#posts'); list.replaceChildren();
+  if (error) { list.append(h('p', {}, 'Could not load the posts right now.')); return; }
+  posts = data || [];
+  if (!posts.length) { list.append(h('p', {}, 'Nothing here yet. Your first post will show up here.')); return; }
+  posts.forEach(p => list.append(postCard(p)));
+}
+
+function canChange(p) { return isOwner() || (p.author_id === me.id && !p.published); }
+
+function postCard(p) {
+  const actions = h('div', { class: 'row' });
+  if (canChange(p)) {
+    actions.append(h('button', { class: 'btn alt small', type: 'button', onclick: () => startEdit(p) }, 'Edit'));
+  }
+  if (isOwner()) {
+    actions.append(h('button', { class: 'btn small' + (p.published ? ' alt' : ' sun'), type: 'button', onclick: () => togglePublish(p) }, p.published ? 'Unpublish' : 'Publish'));
+  }
+  if (canChange(p)) {
+    actions.append(h('button', { class: 'btn danger small', type: 'button', onclick: () => removePost(p) }, 'Delete'));
+  }
+  return h('article', { class: 'card post' },
+    p.image_path ? h('img', { src: publicUrl(p.image_path), alt: p.image_alt || '' }) : h('span'),
+    h('div', {},
+      h('p', { class: 'meta' },
+        h('span', { class: 'badge type' }, TYPE_LABEL[p.type] || p.type),
+        h('span', { class: 'badge ' + (p.published ? 'live' : 'draft') }, p.published ? 'Live' : 'Draft'),
+        fmt(p.created_at)),
+      h('h3', {}, p.title),
+      p.body ? h('p', { class: 'meta' }, p.body.length > 140 ? p.body.slice(0, 140) + '...' : p.body) : null,
+      actions));
+}
+
+function startEdit(p) {
+  editing = p; newImage = null;
+  $('#f-type').value = p.type;
+  $('#f-title').value = p.title || '';
+  $('#f-category').value = p.category || '';
+  $('#f-author').value = p.author || 'River';
+  $('#f-body').value = p.body || '';
+  $('#f-alt').value = p.image_alt || '';
+  $('#f-image').value = '';
+  if (p.image_path) { $('#preview').src = publicUrl(p.image_path); $('#preview').hidden = false; } else { $('#preview').hidden = true; }
+  $('#form-title').textContent = 'Edit your post';
+  $('#btn-cancel').hidden = false;
+  syncButtons();
+  applyType();
+  say('', '');
+  $('#post-form').scrollIntoView({ behavior: 'smooth' });
+  $('#f-title').focus();
+}
+
+async function togglePublish(p) {
+  const { error } = await sb.from('posts').update({ published: !p.published }).eq('id', p.id);
+  if (error) { say('Could not change that post.', 'err'); return; }
+  say(p.published ? 'Unpublished. It is hidden from the site.' : 'Published! It is live on the site.', 'ok');
+  await loadPosts();
+}
+
+async function removePost(p) {
+  if (!confirm('Delete "' + p.title + '"? This cannot be undone.')) return;
+  const { error } = await sb.from('posts').delete().eq('id', p.id);
+  if (error) { say('Could not delete that post.', 'err'); return; }
+  if (p.image_path) sb.storage.from(BUCKET).remove([p.image_path]);
+  if (editing && editing.id === p.id) resetForm();
+  say('Deleted.', 'ok');
+  await loadPosts();
+}
+
+init();
+</script>
+</body>
+</html>
