@@ -67,6 +67,11 @@ textarea{min-height:11rem; resize:vertical}
 .meta{font-size:.9rem; color:var(--ink-soft); margin:0 0 .3rem}
 .note{background:linear-gradient(120deg,#DCEBD8,#D3E7EA); border-radius:18px; padding:.9rem 1.2rem; margin:0 0 1.4rem}
 .login{max-width:440px; margin:2rem auto}
+.qr{display:block; width:200px; height:200px; margin:.6rem 0; background:#fff; border-radius:12px; padding:6px}
+code{background:var(--wash); border-radius:8px; padding:.1rem .45rem; word-break:break-all; font-size:.95rem}
+.steps{margin:.4rem 0 1rem; padding-left:1.3rem}
+.steps li{margin:.3rem 0}
+#mfa-code{font-size:1.5rem; letter-spacing:.3em; text-align:center; max-width:12rem}
 </style>
 </head>
 
@@ -105,6 +110,30 @@ textarea{min-height:11rem; resize:vertical}
     </div>
   </section>
 
+  <!-- two-step check -->
+  <section id="view-mfa" hidden>
+    <div class="login card">
+      <h1 id="mfa-title">Extra security check</h1>
+      <div id="mfa-enroll" hidden>
+        <p>To keep the site safe, sign-in needs a code from an authenticator app. You only set this up once.</p>
+        <ol class="steps">
+          <li>On a grown-up's phone, open an authenticator app such as Google Authenticator, Microsoft Authenticator or a password manager like 1Password or Bitwarden.</li>
+          <li>Add a new account and scan the square below. You can scan it on two phones now, so there is a spare.</li>
+          <li>Type the 6 numbers the app shows.</li>
+        </ol>
+        <img class="qr" id="mfa-qr" alt="Square code to scan with an authenticator app" hidden>
+        <p class="hint">Cannot scan it? Type this key into the app instead: <code id="mfa-secret"></code></p>
+      </div>
+      <p id="mfa-verify-note" hidden>Open your authenticator app and type the 6 numbers it shows.</p>
+      <form id="mfa-form" novalidate>
+        <div class="field"><label for="mfa-code">6-number code</label>
+          <input id="mfa-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="7" pattern="[0-9 ]*"></div>
+        <button class="btn" type="submit" id="btn-mfa">Check code</button>
+        <p class="msg" id="mfa-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <!-- not allowed -->
   <section id="view-denied" hidden>
     <div class="login card">
@@ -125,7 +154,7 @@ textarea{min-height:11rem; resize:vertical}
         <label for="f-type">What are you adding?</label>
         <select id="f-type">
           <option value="blog">A blog post</option>
-          <option value="sanctuary">A sanctuary update</option>
+          <option value="spotlight">A spotlight (an event, a cause or something I did)</option>
           <option value="magazine">A piece for the literary magazine</option>
           <option value="gallery">A photo for the gallery</option>
         </select>
@@ -134,6 +163,28 @@ textarea{min-height:11rem; resize:vertical}
       <div class="field">
         <label for="f-title" id="l-title">Title</label>
         <input id="f-title" type="text" maxlength="140" required>
+      </div>
+
+      <div class="field" id="g-kind" hidden>
+        <label for="f-kind">What kind of spotlight is it?</label>
+        <select id="f-kind">
+          <option value="Event">An event</option>
+          <option value="Cause">A cause I care about</option>
+          <option value="Something I wrote">Something I wrote</option>
+          <option value="Something I took part in">Something I took part in</option>
+        </select>
+      </div>
+
+      <div class="field" id="g-eventdate" hidden>
+        <label for="f-eventdate">Date (optional)</label>
+        <input id="f-eventdate" type="date">
+        <p class="hint">For an event, the day it happens. For something you did, the day you did it.</p>
+      </div>
+
+      <div class="field" id="g-link" hidden>
+        <label for="f-link">Link (optional)</label>
+        <input id="f-link" type="url" maxlength="500" placeholder="https://...">
+        <p class="hint">Where people can learn more or sign up. It must start with https://</p>
       </div>
 
       <div class="field" id="g-category">
@@ -147,7 +198,7 @@ textarea{min-height:11rem; resize:vertical}
       </div>
 
       <div class="field" id="g-body">
-        <label for="f-body">Your writing</label>
+        <label for="f-body" id="l-body">Your writing</label>
         <textarea id="f-body" maxlength="20000"></textarea>
         <p class="hint">Press Enter twice to start a new paragraph.</p>
       </div>
@@ -185,7 +236,7 @@ textarea{min-height:11rem; resize:vertical}
 const cfg = window.SITE_CONFIG || {};
 const $ = s => document.querySelector(s);
 const BUCKET = 'site-images';
-const TYPE_LABEL = { blog: 'Blog post', sanctuary: 'Sanctuary update', magazine: 'Magazine', gallery: 'Gallery photo' };
+const TYPE_LABEL = { blog: 'Blog post', spotlight: 'Spotlight', magazine: 'Magazine', gallery: 'Gallery photo' };
 
 let sb = null, me = null, role = null, editing = null, posts = [], newImage = null;
 
@@ -200,7 +251,7 @@ function h(tag, attrs = {}, ...kids) {
   return el;
 }
 function show(view) {
-  ['config', 'login', 'denied', 'app'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ['config', 'login', 'mfa', 'denied', 'app'].forEach(v => { $('#view-' + v).hidden = v !== view; });
   $('#signout').hidden = (view === 'login' || view === 'config');
 }
 function say(text, kind, target = '#msg') { const m = $(target); m.textContent = text || ''; m.className = 'msg ' + (kind || ''); }
@@ -214,7 +265,7 @@ async function init() {
   sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
   sb.auth.onAuthStateChange(event => { if (event === 'SIGNED_OUT') { me = null; role = null; show('login'); } });
   const { data } = await sb.auth.getSession();
-  if (data && data.session) await enter(data.session.user); else show('login');
+  if (data && data.session) await afterSignIn(data.session.user); else show('login');
 }
 
 async function enter(user) {
@@ -222,15 +273,75 @@ async function enter(user) {
   const { data, error } = await sb.from('admins').select('role').eq('user_id', user.id).maybeSingle();
   if (error || !data) { show('denied'); return; }
   role = data.role;
-  $('#greeting').textContent = isOwner() ? 'Welcome back!' : 'Hi River!';
+  const isRiver = /^river/i.test(user.email || '');
+  $('#greeting').textContent = isRiver ? 'Hi River!' : 'Welcome back!';
   $('#role-note').textContent = isOwner()
-    ? 'You can publish posts right away, and you can review and publish drafts from the list below.'
+    ? 'You can publish posts right away. Anything saved as a draft stays hidden until you publish it from the list below.'
     : 'Your writing is saved as a draft. A grown-up will read it and publish it on the site.';
   syncButtons();
   applyType();
   show('app');
   await loadPosts();
 }
+
+
+/* ---------- two-step check (authenticator app) ---------- */
+let mfaFactorId = null;
+
+// After the password or email link, decide whether a code is still needed.
+async function afterSignIn(user) {
+  me = user;
+  const { data, error } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (error || !data) { await sb.auth.signOut(); show('login'); say('Could not check your sign-in. Please try again.', 'err', '#login-msg'); return; }
+  if (data.currentLevel === 'aal2') return enter(user);   // already passed the code check
+  if (data.nextLevel === 'aal2') return startVerify();    // has an authenticator app set up
+  return startEnroll();                                   // first time: set one up
+}
+
+async function startVerify() {
+  const { data, error } = await sb.auth.mfa.listFactors();
+  const factor = data && data.totp && data.totp[0];
+  if (error || !factor) { await startEnroll(); return; }
+  mfaFactorId = factor.id;
+  $('#mfa-title').textContent = 'Enter your code';
+  $('#mfa-enroll').hidden = true; $('#mfa-verify-note').hidden = false;
+  $('#mfa-code').value = ''; say('', '', '#mfa-msg');
+  show('mfa'); $('#mfa-code').focus();
+}
+
+async function startEnroll() {
+  // clear out any setup that was started but never finished
+  const list = await sb.auth.mfa.listFactors();
+  for (const f of ((list.data && list.data.all) || [])) {
+    if (f.status === 'unverified') await sb.auth.mfa.unenroll({ factorId: f.id });
+  }
+  const { data, error } = await sb.auth.mfa.enroll({ factorType: 'totp', issuer: 'Our World of Wildlife', friendlyName: 'Authenticator ' + Date.now() });
+  if (error || !data) { show('mfa'); say('Could not start the setup. Please sign out and try again.', 'err', '#mfa-msg'); return; }
+  mfaFactorId = data.id;
+  $('#mfa-title').textContent = 'Set up your code';
+  $('#mfa-enroll').hidden = false; $('#mfa-verify-note').hidden = true;
+  // Supabase returns the QR as an SVG data URL. Re-encode it so every browser shows it.
+  const qr = data.totp.qr_code || '';
+  const raw = qr.match(/^data:image\/svg\+xml;(?:charset=)?utf-8,([\s\S]*)$/i);
+  $('#mfa-qr').src = raw && raw[1].trim().startsWith('<') ? 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(raw[1]) : qr;
+  $('#mfa-qr').hidden = false;
+  $('#mfa-secret').textContent = data.totp.secret;
+  $('#mfa-code').value = ''; say('', '', '#mfa-msg');
+  show('mfa'); $('#mfa-code').focus();
+}
+
+$('#mfa-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const code = $('#mfa-code').value.replace(/\s/g, '');
+  if (!/^\d{6}$/.test(code)) { say('Type the 6 numbers from your app.', 'err', '#mfa-msg'); return; }
+  const btn = $('#btn-mfa'); btn.disabled = true;
+  const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: mfaFactorId, code });
+  btn.disabled = false;
+  if (error) { say('That code did not work. Wait for a new one in the app and try again.', 'err', '#mfa-msg'); $('#mfa-code').value = ''; return; }
+  say('', '', '#mfa-msg');
+  const { data } = await sb.auth.getUser();
+  await enter(data.user);
+});
 
 /* ---------- sign in ---------- */
 $('#login-form').addEventListener('submit', async e => {
@@ -241,7 +352,7 @@ $('#login-form').addEventListener('submit', async e => {
   const { data, error } = await sb.auth.signInWithPassword({ email, password });
   if (error) { say('That did not work. Check your email and password and try again.', 'err', '#login-msg'); return; }
   say('', '', '#login-msg');
-  await enter(data.user);
+  await afterSignIn(data.user);
 });
 $('#btn-link').addEventListener('click', async () => {
   const email = $('#email').value.trim();
@@ -261,6 +372,10 @@ function syncButtons() {
 function applyType() {
   const t = $('#f-type').value;
   $('#g-category').hidden = t !== 'blog';
+  $('#g-kind').hidden = t !== 'spotlight';
+  $('#g-eventdate').hidden = t !== 'spotlight';
+  $('#g-link').hidden = t !== 'spotlight';
+  $('#l-body').textContent = t === 'spotlight' ? 'Tell people about it' : 'Your writing';
   $('#g-author').hidden = t !== 'magazine';
   $('#g-body').hidden = t === 'gallery';
   $('#l-title').textContent = t === 'gallery' ? 'Caption' : 'Title';
@@ -317,6 +432,12 @@ $('#post-form').addEventListener('submit', async e => {
   if (type === 'gallery' && !hasImage) { say('Please choose a photo.', 'err'); return; }
   if (hasImage && !alt) { say('Please describe the photo in a few words.', 'err'); return; }
   if (type !== 'gallery' && !$('#f-body').value.trim() && !hasImage) { say('Please write something first.', 'err'); return; }
+  const link = type === 'spotlight' ? $('#f-link').value.trim() : '';
+  if (link) {
+    let okLink = false;
+    try { const u = new URL(link); okLink = u.protocol === 'https:' || u.protocol === 'http:'; } catch (err) { okLink = false; }
+    if (!okLink) { say('The link must start with https://', 'err'); return; }
+  }
 
   const buttons = $$('#post-form button'); buttons.forEach(b => b.disabled = true);
   say('Saving...', '');
@@ -332,7 +453,9 @@ $('#post-form').addEventListener('submit', async e => {
     const published = isOwner() ? (action === 'publish' ? true : (editing ? editing.published : false)) : false;
     const payload = {
       type, title,
-      category: type === 'blog' ? ($('#f-category').value.trim() || null) : null,
+      category: type === 'blog' ? ($('#f-category').value.trim() || null) : (type === 'spotlight' ? $('#f-kind').value : null),
+      link_url: link || null,
+      event_date: type === 'spotlight' ? ($('#f-eventdate').value || null) : null,
       author: type === 'magazine' ? ($('#f-author').value.trim() || 'River') : null,
       body: type === 'gallery' ? null : ($('#f-body').value.trim() || null),
       image_path, image_alt: image_path ? alt : null,
@@ -394,7 +517,10 @@ function startEdit(p) {
   editing = p; newImage = null;
   $('#f-type').value = p.type;
   $('#f-title').value = p.title || '';
-  $('#f-category').value = p.category || '';
+  $('#f-category').value = p.type === 'blog' ? (p.category || '') : '';
+  $('#f-kind').value = p.type === 'spotlight' && p.category ? p.category : 'Event';
+  $('#f-eventdate').value = p.event_date || '';
+  $('#f-link').value = p.link_url || '';
   $('#f-author').value = p.author || 'River';
   $('#f-body').value = p.body || '';
   $('#f-alt').value = p.image_alt || '';

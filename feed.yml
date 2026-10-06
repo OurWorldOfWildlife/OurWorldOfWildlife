@@ -1,0 +1,39 @@
+name: Update blog feed
+
+# Rebuilds feed.xml (the RSS feed people follow) from the published blog posts.
+# Runs every 6 hours. To update it right away, open the Actions tab and click "Run workflow".
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-feed
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build the feed
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SITE_URL: https://ourworldofwildlife.org
+        run: node scripts/build-feed.mjs
+      - name: Save the feed if it changed
+        run: |
+          if [ -n "$(git status --porcelain feed.xml)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add feed.xml
+            git commit -m "Update blog feed"
+            git push
+          fi

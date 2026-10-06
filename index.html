@@ -9,6 +9,7 @@
 <meta property="og:title" content="Our World of Wildlife">
 <meta property="og:description" content="A kid-led nature and conservation site about wildlife, recycling and upcycling.">
 <meta property="og:type" content="website">
+<link rel="alternate" type="application/rss+xml" title="River's blog" href="feed.xml">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="alternate icon" href="favicon.ico" sizes="any">
@@ -345,6 +346,17 @@ p{margin:0 0 1rem}
 .yoga-band > div{flex:1 1 20rem}
 .yoga-band h2{margin:0 0 .2rem}
 .yoga-band p{margin:0}
+
+/* ---------- spotlight and subscribe ---------- */
+.tag{display:inline-block; background:var(--wash); color:var(--fern); font-weight:700; font-size:.8rem; padding:.05rem .65rem; border-radius:999px; margin-right:.4rem}
+.tag.hot{background:var(--sun); color:#2b1d03}
+.card.upcoming{border-color:var(--sun); background:#FFF8E6}
+.subscribe{display:flex; gap:1rem; align-items:flex-start; margin:0 0 1.6rem}
+[id^="post-"], [id^="spot-"]{scroll-margin-top:90px}
+.subscribe .icon{color:var(--fern)}
+.subscribe .hint{margin:.7rem 0 0}
+.subscribe h3{margin-bottom:.1rem}
+.subscribe p{margin-bottom:.7rem}
 </style>
 </head>
 
@@ -379,7 +391,7 @@ p{margin:0 0 1rem}
     <a href="#/podcast" data-nav="podcast">Podcast</a>
     <a href="#/quiz" data-nav="quiz">Quizzes</a>
     <a href="#/blog" data-nav="blog">Blog</a>
-    <a href="#/sanctuary" data-nav="sanctuary">Sanctuary</a>
+    <a href="#/spotlight" data-nav="spotlight">Spotlight</a>
     <a href="#/magazine" data-nav="magazine">Magazine</a>
     <a href="#/action" data-nav="action">Take action</a>
     <a href="#/inspirations" data-nav="inspirations">Inspirations</a>
@@ -640,7 +652,7 @@ p{margin:0 0 1rem}
       <div class="grid">
         <a class="card tile" href="#/podcast"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Podcast</h3><p>Press play and listen to River.</p></div></a>
         <a class="card tile" href="#/blog"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><h3>River's blog</h3><p>Stories and ideas from River.</p></div></a>
-        <a class="card tile" href="#/sanctuary"><svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg><div><h3>Sanctuary updates</h3><p>News and photos from the animals.</p></div></a>
+        <a class="card tile" href="#/spotlight"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><div><h3>Spotlight</h3><p>Events, causes and things I've been part of.</p></div></a>
         <a class="card tile" href="#/magazine"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><div><h3>Literary magazine</h3><p>Poems, stories and past writings.</p></div></a>
         <a class="card tile" href="#/action"><svg class="icon" aria-hidden="true"><use href="#i-sign"/></svg><div><h3>Take action</h3><p>River's petition, family yoga and more.</p></div></a>
         <a class="card tile" href="#/inspirations"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><div><h3>Inspirations</h3><p>Projects and people I admire.</p></div></a>
@@ -661,6 +673,19 @@ p{margin:0 0 1rem}
   <section class="view" data-view="blog" hidden aria-labelledby="blog-title">
     <h1 class="view-title" id="blog-title" tabindex="-1">River's blog</h1>
     <p class="view-intro">Stories, discoveries and ideas for helping the planet.</p>
+    <div class="card subscribe" id="subscribe">
+      <svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg>
+      <div>
+        <h3>Follow River's blog</h3>
+        <p>Get new posts without having to check back.</p>
+        <div class="cta-row">
+          <a class="btn small" id="sub-email" href="#" target="_blank" rel="noopener noreferrer" hidden>Get new posts by email</a>
+          <a class="btn alt small" id="sub-rss" href="feed.xml">Follow with RSS</a>
+          <button class="btn alt small" id="sub-copy" type="button">Copy feed link</button>
+        </div>
+        <p class="hint" id="sub-status" role="status">RSS works with free apps like Feedly and Inoreader.</p>
+      </div>
+    </div>
     <div class="empty" id="blog-empty">
       <svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg>
       <div><span class="soon">Coming soon</span><h3>The first post is on its way</h3><p>River is working on her first blog post. Check back soon.</p></div>
@@ -668,15 +693,15 @@ p{margin:0 0 1rem}
     <div class="stack" id="blog-list"></div>
   </section>
 
-  <!-- ============ SANCTUARY ============ -->
-  <section class="view" data-view="sanctuary" hidden aria-labelledby="sanctuary-title">
-    <h1 class="view-title" id="sanctuary-title" tabindex="-1">Sanctuary updates</h1>
-    <p class="view-intro">News from the animals and the people who care for them.</p>
-    <div class="empty" id="sanctuary-empty">
-      <svg class="icon" aria-hidden="true"><use href="#i-paw"/></svg>
-      <div><span class="soon">Coming soon</span><h3>No updates yet</h3><p>Sanctuary news and stories will show up here.</p></div>
+  <!-- ============ SPOTLIGHT ============ -->
+  <section class="view" data-view="spotlight" hidden aria-labelledby="spotlight-title">
+    <h1 class="view-title" id="spotlight-title" tabindex="-1">Spotlight</h1>
+    <p class="view-intro">Events and causes I care about, plus things I have written or been a part of.</p>
+    <div class="empty" id="spotlight-empty">
+      <svg class="icon" aria-hidden="true"><use href="#i-star"/></svg>
+      <div><span class="soon">Coming soon</span><h3>Nothing in the spotlight yet</h3><p>Events, causes and things I have been part of will show up here.</p></div>
     </div>
-    <div class="stack" id="sanctuary-list"></div>
+    <div class="stack" id="spotlight-list"></div>
 
     <h2 class="section-gap">Photo gallery</h2>
     <div class="gallery" id="gallery"></div>
@@ -890,8 +915,8 @@ const CONTENT = {
   ],
   // { title, date: 'YYYY-MM-DD', category, excerpt }
   posts: [],
-  // { title, date: 'YYYY-MM-DD', text }
-  sanctuary: [],
+  // { title, kind: 'Event', date: 'YYYY-MM-DD', eventDate: 'YYYY-MM-DD', text, link: 'https://...' }
+  spotlight: [],
   // { title, author, date: 'YYYY-MM-DD', text }
   magazine: [],
   // { src: 'images/photo.jpg', alt, caption }
@@ -1062,12 +1087,19 @@ const fmtDate = d => {
 };
 
 /* ---------- router ---------- */
-const ROUTES = { home:'home', mission:'home', petition:'petition', podcast:'podcast', quiz:'quiz', blog:'blog', sanctuary:'sanctuary', magazine:'magazine', action:'action', inspirations:'inspirations' };
-const TITLES = { home:'Our World of Wildlife', podcast:'Podcast | Our World of Wildlife', petition:'Drone Show for Aberdeen | Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", sanctuary:'Sanctuary updates | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
+const ROUTES = { home:'home', mission:'home', petition:'petition', podcast:'podcast', quiz:'quiz', blog:'blog', sanctuary:'spotlight', spotlight:'spotlight', magazine:'magazine', action:'action', inspirations:'inspirations' };
+const TITLES = { home:'Our World of Wildlife', podcast:'Podcast | Our World of Wildlife', petition:'Drone Show for Aberdeen | Our World of Wildlife', quiz:'Quizzes | Our World of Wildlife', blog:"River's blog | Our World of Wildlife", spotlight:'Spotlight | Our World of Wildlife', magazine:'Literary magazine | Our World of Wildlife', action:'Take action | Our World of Wildlife', inspirations:'Inspirations | Our World of Wildlife' };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+let pendingScroll = null;
+function tryScroll() {
+  if (!pendingScroll) return;
+  const el = document.getElementById(pendingScroll);
+  if (el) { el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); pendingScroll = null; }
+}
 function route(initial) {
-  const key = (location.hash.replace(/^#\/?/, '') || 'home').split('?')[0];
+  const raw = (location.hash.replace(/^#\/?/, '') || 'home').split('?')[0];
+  const [key, sub] = raw.split('/');
   const view = ROUTES[key] || 'home';
   $$('[data-view]').forEach(v => v.hidden = v.dataset.view !== view);
   $$('[data-nav]').forEach(a => a.dataset.nav === view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
@@ -1075,6 +1107,9 @@ function route(initial) {
   if (view === 'podcast') initPodcast();
   if (key === 'mission') {
     $('#mission').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  } else if (sub && /^[A-Za-z0-9-]+$/.test(sub)) {
+    pendingScroll = (view === 'blog' ? 'post-' : 'spot-') + sub;
+    tryScroll();
   } else {
     window.scrollTo(0, 0);
     const heading = $(`[data-view="${view}"] h1`);
@@ -1176,13 +1211,36 @@ function fillList(listId, emptyId, items, build) {
 }
 const postBody = t => h('div', { class: 'post-body' }, t || '');
 const postImg = p => p.image ? h('img', { class: 'post-img', src: p.image, alt: p.alt || '', loading: 'lazy' }) : '';
+function safeLink(u) {
+  try { const x = new URL(u); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : ''; } catch (e) { return ''; }
+}
+const todayStr = () => new Date().toISOString().slice(0, 10);
 function renderContent() {
   const sorted = arr => [...arr].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-  fillList('blog-list', 'blog-empty', sorted(CONTENT.posts), p => h('article', { class: 'card' },
+  fillList('blog-list', 'blog-empty', sorted(CONTENT.posts), p => h('article', { class: 'card', id: p.id ? 'post-' + p.id : null },
     h('p', { class: 'meta' }, [fmtDate(p.date), p.category].filter(Boolean).join(' | ')),
     h('h3', {}, p.title), postImg(p), postBody(p.text || p.excerpt)));
-  fillList('sanctuary-list', 'sanctuary-empty', sorted(CONTENT.sanctuary), p => h('article', { class: 'card' },
-    h('p', { class: 'meta' }, fmtDate(p.date)), h('h3', {}, p.title), postImg(p), postBody(p.text)));
+
+  // Spotlight: upcoming events first (soonest first), then everything else newest first
+  const today = todayStr();
+  const when = p => p.eventDate || p.date || '';
+  const isUp = p => p.eventDate && p.eventDate >= today;
+  const spot = [...CONTENT.spotlight].sort((a, b) => {
+    if (isUp(a) && isUp(b)) return a.eventDate.localeCompare(b.eventDate);
+    if (isUp(a)) return -1; if (isUp(b)) return 1;
+    return when(b).localeCompare(when(a));
+  });
+  fillList('spotlight-list', 'spotlight-empty', spot, p => {
+    const href = p.link ? safeLink(p.link) : '';
+    return h('article', { class: 'card' + (isUp(p) ? ' upcoming' : ''), id: p.id ? 'spot-' + p.id : null },
+      h('p', { class: 'meta' },
+        h('span', { class: 'tag' }, p.kind || 'Spotlight'),
+        isUp(p) ? h('span', { class: 'tag hot' }, 'Coming up') : '',
+        fmtDate(when(p))),
+      h('h3', {}, p.title), postImg(p), postBody(p.text),
+      href ? h('p', {}, h('a', { class: 'btn small', href, target: '_blank', rel: 'noopener noreferrer' }, p.kind === 'Event' ? 'Event details' : 'Learn more (opens a new tab)')) : '');
+  });
+
   fillList('magazine-list', 'magazine-empty', sorted(CONTENT.magazine), p => h('article', { class: 'card' },
     h('p', { class: 'meta' }, [fmtDate(p.date), p.author && 'By ' + p.author].filter(Boolean).join(' | ')),
     h('h3', {}, p.title), postImg(p), postBody(p.text)));
@@ -1195,6 +1253,7 @@ function renderContent() {
   } else {
     for (let i = 0; i < 6; i++) gal.append(h('div', { class: 'frame' }, h('div', {}, icon('i-camera'), 'Photo coming soon')));
   }
+  tryScroll();
 }
 
 /* ---------- load posts published from the admin page ---------- */
@@ -1202,21 +1261,38 @@ async function loadRemoteContent() {
   const cfg = window.SITE_CONFIG || {};
   if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return false;
   const base = cfg.SUPABASE_URL.replace(/\/$/, '');
+  const getRows = async cols => {
+    const res = await fetch(`${base}/rest/v1/posts?select=${cols}&published=eq.true&order=created_at.desc&limit=300`, { headers: { apikey: cfg.SUPABASE_ANON_KEY } });
+    return res.ok ? res.json() : null;
+  };
   try {
-    const res = await fetch(`${base}/rest/v1/posts?select=id,type,title,category,author,body,image_path,image_alt,created_at&published=eq.true&order=created_at.desc&limit=300`,
-      { headers: { apikey: cfg.SUPABASE_ANON_KEY } });
-    if (!res.ok) return false;
-    const rows = await res.json();
+    const base_cols = 'id,type,title,category,author,body,image_path,image_alt,created_at';
+    // falls back to the older column list if the Spotlight update has not been run on the database yet
+    const rows = (await getRows(base_cols + ',link_url,event_date')) || (await getRows(base_cols));
     if (!Array.isArray(rows)) return false;
     const img = r => r.image_path ? `${base}/storage/v1/object/public/site-images/${encodeURI(r.image_path)}` : '';
     const day = r => String(r.created_at || '').slice(0, 10);
-    const of = t => rows.filter(r => r.type === t);
-    CONTENT.posts = of('blog').map(r => ({ title: r.title, date: day(r), category: r.category, text: r.body, image: img(r), alt: r.image_alt }));
-    CONTENT.sanctuary = of('sanctuary').map(r => ({ title: r.title, date: day(r), text: r.body, image: img(r), alt: r.image_alt }));
-    CONTENT.magazine = of('magazine').map(r => ({ title: r.title, author: r.author, date: day(r), text: r.body, image: img(r), alt: r.image_alt }));
+    const of = (...t) => rows.filter(r => t.includes(r.type));
+    CONTENT.posts = of('blog').map(r => ({ id: r.id, title: r.title, date: day(r), category: r.category, text: r.body, image: img(r), alt: r.image_alt }));
+    CONTENT.spotlight = of('spotlight', 'sanctuary').map(r => ({ id: r.id, title: r.title, kind: r.category || '', date: day(r), eventDate: r.event_date || '', text: r.body, image: img(r), alt: r.image_alt, link: r.link_url || '' }));
+    CONTENT.magazine = of('magazine').map(r => ({ id: r.id, title: r.title, author: r.author, date: day(r), text: r.body, image: img(r), alt: r.image_alt }));
     CONTENT.gallery = of('gallery').map(r => ({ src: img(r), alt: r.image_alt, caption: r.title, date: day(r) }));
     return true;
   } catch (e) { return false; }
+}
+
+/* ---------- blog subscribe box ---------- */
+function initSubscribe() {
+  const cfg = window.SITE_CONFIG || {};
+  const feed = new URL('feed.xml', location.href).href;
+  $('#sub-rss').href = feed;
+  const email = cfg.SUBSCRIBE_URL ? safeLink(cfg.SUBSCRIBE_URL) : '';
+  if (email) { const a = $('#sub-email'); a.href = email; a.hidden = false; }
+  $('#sub-copy').addEventListener('click', async () => {
+    const st = $('#sub-status');
+    try { await navigator.clipboard.writeText(feed); st.textContent = 'Feed link copied! Paste it into your RSS app.'; }
+    catch (e) { st.textContent = 'Copy this link into your RSS app: ' + feed; }
+  });
 }
 
 /* ---------- podcast player ---------- */
@@ -1301,6 +1377,7 @@ async function sharePetition() {
 /* ---------- start ---------- */
 $('#year').textContent = new Date().getFullYear();
 renderContent();
+initSubscribe();
 loadRemoteContent().then(ok => { if (ok) renderContent(); });
 buildDroneArt();
 startQuiz('wild');
