@@ -236,6 +236,9 @@ code{background:var(--wash); border-radius:8px; padding:.1rem .45rem; word-break
 const cfg = window.SITE_CONFIG || {};
 const $ = s => document.querySelector(s);
 const BUCKET = 'site-images';
+// Two-step sign-in with an authenticator app. Off for now.
+// To turn it on: set this to true, upload this file, finish the setup at sign-in, then run mfa.sql (see SETUP.md).
+const REQUIRE_MFA = false;
 const TYPE_LABEL = { blog: 'Blog post', spotlight: 'Spotlight', magazine: 'Magazine', gallery: 'Gallery photo' };
 
 let sb = null, me = null, role = null, editing = null, posts = [], newImage = null;
@@ -291,6 +294,7 @@ let mfaFactorId = null;
 // After the password or email link, decide whether a code is still needed.
 async function afterSignIn(user) {
   me = user;
+  if (!REQUIRE_MFA) return enter(user);
   const { data, error } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
   if (error || !data) { await sb.auth.signOut(); show('login'); say('Could not check your sign-in. Please try again.', 'err', '#login-msg'); return; }
   if (data.currentLevel === 'aal2') return enter(user);   // already passed the code check
