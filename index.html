@@ -354,6 +354,9 @@ p{margin:0 0 1rem}
 .subscribe{display:flex; gap:1rem; align-items:flex-start; margin:0 0 1.6rem}
 [id^="post-"], [id^="spot-"]{scroll-margin-top:90px}
 .subscribe .icon{color:var(--fern)}
+#sub-embed{margin-top:1rem}
+#sub-embed iframe{display:block; width:100%; min-height:470px; border:0; border-radius:16px; background:#fff}
+.subscribe > div{min-width:0; flex:1}
 .subscribe .hint{margin:.7rem 0 0}
 .subscribe h3{margin-bottom:.1rem}
 .subscribe p{margin-bottom:.7rem}
@@ -679,10 +682,11 @@ p{margin:0 0 1rem}
         <h3>Follow River's blog</h3>
         <p>Get new posts without having to check back.</p>
         <div class="cta-row">
-          <a class="btn small" id="sub-email" href="#" target="_blank" rel="noopener noreferrer" hidden>Get new posts by email</a>
+          <a class="btn small" id="sub-email" href="#" target="_blank" rel="noopener noreferrer" hidden>Email me new posts</a>
           <a class="btn alt small" id="sub-rss" href="feed.xml">Follow with RSS</a>
           <button class="btn alt small" id="sub-copy" type="button">Copy feed link</button>
         </div>
+        <div id="sub-embed" hidden></div>
         <p class="hint" id="sub-status" role="status">RSS works with free apps like Feedly and Inoreader.</p>
       </div>
     </div>
@@ -1285,14 +1289,44 @@ async function loadRemoteContent() {
 function initSubscribe() {
   const cfg = window.SITE_CONFIG || {};
   const feed = new URL('feed.xml', location.href).href;
-  $('#sub-rss').href = feed;
   const email = cfg.SUBSCRIBE_URL ? safeLink(cfg.SUBSCRIBE_URL) : '';
-  if (email) { const a = $('#sub-email'); a.href = email; a.hidden = false; }
-  $('#sub-copy').addEventListener('click', async () => {
-    const st = $('#sub-status');
-    try { await navigator.clipboard.writeText(feed); st.textContent = 'Feed link copied! Paste it into your RSS app.'; }
-    catch (e) { st.textContent = 'Copy this link into your RSS app: ' + feed; }
-  });
+  const showRss = cfg.SHOW_RSS === true;
+  // The box only appears when there is something to offer: an email signup link and/or the RSS buttons.
+  $('#subscribe').hidden = !(email || showRss);
+  if (email) {
+    const a = $('#sub-email'); a.href = email; a.hidden = false;
+    // Brevo forms can be shown right on the page. Other links open in a new tab.
+    let host = ''; try { host = new URL(email).hostname; } catch (e) {}
+    if (/(^|\.)sibforms\.com$/i.test(host)) {
+      const box = $('#sub-embed');
+      a.setAttribute('role', 'button'); a.setAttribute('aria-expanded', 'false'); a.setAttribute('aria-controls', 'sub-embed');
+      a.addEventListener('click', ev => {
+        ev.preventDefault();
+        const open = box.hidden;
+        if (open && !box.firstChild) {
+          box.append(
+            h('iframe', { src: email, title: 'Sign up for new blog posts by email', loading: 'lazy',
+              sandbox: 'allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox' }),
+            h('p', { class: 'hint' }, 'Trouble with the form? ', h('a', { href: email, target: '_blank', rel: 'noopener noreferrer' }, 'Open it in a new tab.')));
+        }
+        box.hidden = !open;
+        a.setAttribute('aria-expanded', String(open));
+      });
+    }
+  }
+  $('#sub-rss').hidden = !showRss;
+  $('#sub-copy').hidden = !showRss;
+  $('#sub-status').textContent = showRss
+    ? 'RSS works with free apps like Feedly and Inoreader.'
+    : "We only use your email to send River's blog posts. You can unsubscribe any time.";
+  if (showRss) {
+    $('#sub-rss').href = feed;
+    $('#sub-copy').addEventListener('click', async () => {
+      const st = $('#sub-status');
+      try { await navigator.clipboard.writeText(feed); st.textContent = 'Feed link copied! Paste it into your RSS app.'; }
+      catch (e) { st.textContent = 'Copy this link into your RSS app: ' + feed; }
+    });
+  }
 }
 
 /* ---------- podcast player ---------- */
